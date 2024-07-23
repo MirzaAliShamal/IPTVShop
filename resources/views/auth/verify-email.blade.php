@@ -1,31 +1,57 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-        {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
-    </div>
+@extends('layouts.auth')
 
-    @if (session('status') == 'verification-link-sent')
-        <div class="mb-4 font-medium text-sm text-green-600 dark:text-green-400">
-            {{ __('A new verification link has been sent to the email address you provided during registration.') }}
-        </div>
-    @endif
+@section('title', 'Verify Email')
 
-    <div class="mt-4 flex items-center justify-between">
-        <form method="POST" action="{{ route('verification.send') }}">
-            @csrf
-
-            <div>
-                <x-primary-button>
-                    {{ __('Resend Verification Email') }}
-                </x-primary-button>
+@section('content')
+<div class="container min-h-100">
+    <div class="row min-h-100 justify-content-center align-items-center">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+            <div class="auth-form">
+                <div class="auth-form-header">
+                    <h3>Verify your Email Address</h3>
+                    <p>A verification code has been sent to {{ auth()->user()->email }}</p>
+                    <p class="mt-5">
+                        Please check your inbox and enter verification code below to verify your email address. The code will expire in 15 minutes
+                    </p>
+                </div>
+                <div class="auth-form-body">
+                    <form action="{{ route('verification.verify') }}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <div class="otp-form-group @error('otp') is-invalid @enderror">
+                                <input type="text" name="otp[]" minlength="1" maxlength="1" class="form-control otp-inputbar" autocomplete="off">
+                                <input type="text" name="otp[]" minlength="1" maxlength="1" class="form-control otp-inputbar" autocomplete="off">
+                                <input type="text" name="otp[]" minlength="1" maxlength="1" class="form-control otp-inputbar" autocomplete="off">
+                                <input type="text" name="otp[]" minlength="1" maxlength="1" class="form-control otp-inputbar" autocomplete="off">
+                                <input type="text" name="otp[]" minlength="1" maxlength="1" class="form-control otp-inputbar" autocomplete="off">
+                                <input type="text" name="otp[]" minlength="1" maxlength="1" class="form-control otp-inputbar" autocomplete="off">
+                            </div>
+                            @error('otp')
+                                <div class="invalid-feedback mt-3">
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary w-100">Verify</button>
+                        </div>
+                        <div class="form-group">
+                            <div class="d-flex justify-content-between">
+                                <a href="{{ route('verification.resend') }}" class="forgot-password">Resend code</a>
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="forgot-password">Logout</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </form>
-
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-
-            <button type="submit" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
-                {{ __('Log Out') }}
-            </button>
-        </form>
+        </div>
     </div>
-</x-guest-layout>
+</div>
+@endsection
+
+@section('js')
+    <script>
+        let startTime = "{{ session('otp')['started_at'] }}";
+    </script>
+    <script src="{{ asset('app/js/auth/verifyEmail.js?v='.rand()) }}"></script>
+@endsection

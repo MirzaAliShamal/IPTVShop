@@ -1,0 +1,90 @@
+@font-face {
+    font-family: 'Ginka TRIAL';
+    src: url('GinkaTRIAL-BoldItalic.woff2') format('woff2'),
+        url('GinkaTRIAL-BoldItalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Ginka TRIAL';
+    src: url('GinkaTRIAL-Bold.woff2') format('woff2'),
+        url('GinkaTRIAL-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Ginka TRIAL';
+    src: url('GinkaTRIAL-MediumItalic.woff2') format('woff2'),
+        url('GinkaTRIAL-MediumItalic.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Ginka TRIAL';
+    src: url('GinkaTRIAL-Book.woff2') format('woff2'),
+        url('GinkaTRIAL-Book.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Ginka TRIAL';
+    src: url('GinkaTRIAL-Italic.woff2') format('woff2'),
+        url('GinkaTRIAL-Italic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Ginka TRIAL';
+    src: url('GinkaTRIAL-Regular.woff2') format('woff2'),
+        url('GinkaTRIAL-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Ginka TRIAL';
+    src: url('GinkaTRIAL-BookItalic.woff2') format('woff2'),
+        url('GinkaTRIAL-BookItalic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Ginka TRIAL';
+    src: url('GinkaTRIAL-Light.woff2') format('woff2'),
+        url('GinkaTRIAL-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Ginka TRIAL';
+    src: url('GinkaTRIAL-LightItalic.woff2') format('woff2'),
+        url('GinkaTRIAL-LightItalic.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Ginka TRIAL';
+    src: url('GinkaTRIAL-Medium.woff2') format('woff2'),
+        url('GinkaTRIAL-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+

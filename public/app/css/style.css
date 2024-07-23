@@ -1,0 +1,234 @@
+@import url('../fonts/stylesheet.css');
+
+body {
+    font-family: 'Ginka TRIAL';
+    font-weight: normal;
+    color: #272727;
+}
+
+p {
+    padding: 0px;
+    margin: 0px;
+}
+
+a {
+    text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 500;
+    color: #272727;
+}
+
+.min-h-100 {
+    min-height: 100vh;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-label {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16.8px;
+    letter-spacing: 0.03em;
+    text-align: center;
+}
+
+.form-check-label {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 14.4px;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+}
+
+.form-control {
+    height: 41.31px;
+    border-radius: 12px;
+    border: 1px solid #272727;
+    transition: 0.3s all ease;
+    font-family: 'Ginka TRIAL';
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.8px;
+    letter-spacing: 0.03em;
+}
+
+.form-control:focus,
+.form-control:focus-visible,
+.form-control:focus-within,
+.form-control:active {
+    border-radius: 12px;
+    border: 1px solid #272727;
+    outline: none;
+    box-shadow: 0px 4px 10px 0px #00000040;
+}
+
+.form-check {
+    min-height: auto;
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-check-input {
+    width: 14.46px;
+    height: 13.43px;
+    border-radius: 4px;
+    border: 1px solid #272727;
+
+    float: none !important;
+    margin: 0px !important;
+    vertical-align: unset !important;
+}
+
+.form-check-input:focus,
+.form-check-input:focus-visible,
+.form-check-input:focus-within,
+.form-check-input:active,
+.form-check-input:visited {
+    border-radius: 4px;
+    outline: none;
+    box-shadow: none;
+}
+
+
+.btn {
+    height: 41.31px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px 0px #E9444B40;
+
+    font-family: 'Ginka TRIAL';
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16.8px;
+    letter-spacing: 0.03em;
+    text-align: center;
+}
+
+.btn-primary {
+    background: #55BD8B;
+    border-color: #55BD8B;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background: #1f1e30;
+    border-color: #1f1e30;
+}
+
+.btn-secondary {
+    background: #1f1e30;
+    border-color: #1f1e30;
+    color: #ffffff;
+}
+
+.btn-secondary:hover {
+    background: #55BD8B;
+    border-color: #55BD8B;
+}
+
+.text-primary {
+    color: #55BD8B !important;
+}
+
+.text-secondary {
+    color: #1f1e30 !important;
+}
+
+.text-dark {
+    color: #272727 !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.auth-image {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-form {
+    padding: 2rem 0;
+}
+
+.auth-form-header {
+    text-align: center;
+}
+
+.auth-form-header h2 {
+    font-size: 34px;
+    font-weight: 500;
+    line-height: 40.8px;
+    letter-spacing: 0.03em;
+    text-align: center;
+}
+
+.auth-form-header p {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.8px;
+    letter-spacing: 0.03em;
+    text-align: center;
+}
+
+.auth-form-body {
+    margin-top: 2rem;
+}
+
+.forgot-password {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 14.4px;
+    letter-spacing: 0.03em;
+    color: #272727;
+}
+
+.auth-form-footer p {
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 12px;
+    letter-spacing: 0.03em;
+    text-align: center;
+}
+
+.otp-form-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.otp-inputbar {
+    width: 50px;
+    height: 50px;
+    border-radius: 5.6px;
+    text-align: center;
+    font-size: 16px;
+    color: #ffffff;
+    background: #1f1e30;
+}
+
+.otp-inputbar:focus,
+.otp-inputbar:focus-visible,
+.otp-inputbar:focus-within,
+.otp-inputbar:active {
+    border-radius: 5.6px;
+    color: #ffffff;
+    background: #1f1e30;
+}
