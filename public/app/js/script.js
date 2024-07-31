@@ -23,3 +23,17 @@ $(".otp-inputbar").on("keyup keydown keypress", function (e) {
             break;
     }
 });
+
+// Sidebar Toggle
+$("[data-toggle='sidebar']").click(function (e) {
+    e.preventDefault();
+     // Toggle the data-side-minimize attribute
+     var body = $("body");
+     var currentState = body.attr("data-side-minimize");
+
+     if (currentState === "off") {
+        body.attr("data-side-minimize", "on");
+     } else {
+        body.attr("data-side-minimize", "off");
+     }
+});

@@ -1,0 +1,7 @@
+body, html {
+    font-size: 12px !important;
+}
+
+.select2-container--bootstrap5 .select2-selection--single .select2-selection__rendered {
+    color: #3f4254;
+}

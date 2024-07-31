@@ -67,5 +67,7 @@ class Kernel extends HttpKernel
 
 
         'otp.verify' => \App\Http\Middleware\OTPVerify::class,
+        'admin' => \App\Http\Middleware\Admin::class,
+        'customer' => \App\Http\Middleware\Customer::class,
     ];
 }

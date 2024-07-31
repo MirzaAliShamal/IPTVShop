@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Customer\IPTVController;
 use App\Http\Controllers\Customer\DashboardController;
 
 /*
@@ -19,7 +20,11 @@ require __DIR__.'/auth.php';
 
 Route::get('/', function () {
     if (Auth::check()) {
-        return redirect()->route('dashboard.index');
+        if (Auth::user()->role === 'admin') {
+            return redirect()->route('admin.dashboard.index');
+        } else {
+            return redirect()->route('dashboard.index');
+        }
     } else {
         return redirect()->route('login');
     }
@@ -29,6 +34,7 @@ Route::get('/verification', function() {
     return view('auth.verification');
 });
 
-Route::middleware('auth', 'otp.verify')->group(function () {
+Route::middleware('auth', 'customer', 'otp.verify')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/iptv/test', [IPTVController::class, 'test'])->name('iptv.test');
 });

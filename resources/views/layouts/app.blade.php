@@ -16,13 +16,29 @@
         <link rel="stylesheet" href="{{ asset('app/css/responsive.css?v='.rand()) }}">
         @yield('css')
     </head>
-    <body>
+    <body data-side-minimize="off">
+        <div class="d-flex flex-column" id="wrapper">
+            <div class="d-flex flex-column flex-root">
+                <div class="d-flex flex-row flex-column-fluid">
+                    @include('app.components.sidebar')
 
-        @yield('content')
+                    <div class="page-wrapper d-flex flex-column flex-row-fluid">
+                        @include('app.components.header')
+
+                        <div class="content-wrapper d-flex flex-column-fluid">
+                            <div class="container">
+                                @yield('content')
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <form action="{{ route('logout') }}" method="post" id="logout-form">@csrf</form>
 
         <script src="{{ asset('app/js/jquery.js') }}"></script>
+        <script src="{{ asset('app/js/popper.min.js') }}"></script>
         <script src="{{ asset('app/js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('app/js/script.js?v='.rand()) }}"></script>
         @yield('js')
