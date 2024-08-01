@@ -191,9 +191,6 @@
                             <div class="menu-item px-5">
                                 <a href="" class="menu-link px-5">My Profile</a>
                             </div>
-                            <div class="menu-item px-5">
-                                <a href="" class="menu-link px-5">Settings</a>
-                            </div>
                             <div class="separator my-2"></div>
                             <div class="menu-item px-5">
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="menu-link px-5">Sign Out</a>

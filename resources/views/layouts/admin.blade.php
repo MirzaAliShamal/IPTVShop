@@ -7,10 +7,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta charset="utf-8" />
 
-        <link rel="icon" href="{{ asset('admin/images/iptv-shop-icon-32x32.png') }}" sizes="32x32" />
-        <link rel="icon" href="{{ asset('admin/images/iptv-shop-icon-192x192.png') }}" sizes="192x192" />
-        <link rel="apple-touch-icon" href="{{ asset('admin/images/iptv-shop-icon-180x180.png') }}" />
-        <meta name="msapplication-TileImage" content="{{ asset('admin/images/iptv-shop-icon-270x270.png') }}" />
+        <link rel="icon" href="{{ asset('admin/media/logos/iptv-shop-icon-32x32.png') }}" sizes="32x32" />
+        <link rel="icon" href="{{ asset('admin/media/logos/iptv-shop-icon-192x192.png') }}" sizes="192x192" />
+        <link rel="apple-touch-icon" href="{{ asset('admin/media/logos/iptv-shop-icon-180x180.png') }}" />
+        <meta name="msapplication-TileImage" content="{{ asset('admin/media/logos/iptv-shop-icon-270x270.png') }}" />
 
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
         <link href="{{ asset('admin/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
