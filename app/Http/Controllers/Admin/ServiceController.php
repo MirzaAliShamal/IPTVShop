@@ -37,7 +37,7 @@ class ServiceController extends Controller
                 return $row->duration.' Month';
             })
             ->editColumn('price', function($row) {
-                return '£'.$row->price;
+                return $row->price.'£';
             })
             ->editColumn('status', function($row) {
                 $html = '';

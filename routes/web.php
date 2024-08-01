@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Customer\IPTVController;
+use App\Http\Controllers\Customer\ProductController;
+use App\Http\Controllers\Customer\ServiceController;
 use App\Http\Controllers\Customer\DashboardController;
 
 /*
@@ -36,5 +38,11 @@ Route::get('/verification', function() {
 
 Route::middleware('auth', 'customer', 'otp.verify')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
     Route::get('/iptv/test', [IPTVController::class, 'test'])->name('iptv.test');
+    Route::get('/iptv/services', [IPTVController::class, 'services'])->name('iptv.services');
+
+    Route::get('/popular-services', [ServiceController::class, 'index'])->name('services.index');
+
+    Route::get('/popular-products', [ProductController::class, 'index'])->name('products.index');
 });
