@@ -49,5 +49,9 @@ Route::middleware('auth', 'customer', 'otp.verify')->group(function () {
 
     Route::prefix('funds')->name('funds.')->group(function () {
         Route::get('/index', [FundsController::class, 'index'])->name('index');
+        Route::get('/paypal/{id}', [FundsController::class, 'paypal'])->name('paypal');
+        Route::get('/visa/{id}', [FundsController::class, 'visa'])->name('visa');
+        Route::post('/purchase/{id}', [FundsController::class, 'purchase'])->name('purchase');
+        Route::get('/thank-you', [FundsController::class, 'thankyou'])->name('thankyou');
     });
 });

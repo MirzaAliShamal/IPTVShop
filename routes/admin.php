@@ -3,9 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FundsCardController;
+use App\Http\Controllers\Admin\BankAccountController;
 use App\Http\Controllers\Admin\IPTVServiceController;
+use App\Http\Controllers\Admin\PayPalAccountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +23,11 @@ use App\Http\Controllers\Admin\IPTVServiceController;
 
 Route::middleware('auth', 'admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
+    Route::prefix('settings')->name('setting.')->controller(SettingsController::class)->group(function() {
+        Route::get('/', 'index')->name('index');
+        Route::post('/save', 'save')->name('save');
+    });
 
     Route::prefix('iptv-services')->name('iptv.service.')->controller(IPTVServiceController::class)->group(function() {
         Route::get('/', 'index')->name('index');
@@ -61,5 +69,25 @@ Route::middleware('auth', 'admin')->group(function () {
         Route::post('/save', 'save')->name('save');
         Route::put('/update/{fundsCard}', 'update')->name('update');
         Route::get('/delete/{fundsCard}', 'delete')->name('delete');
+    });
+
+    Route::prefix('bank-accounts')->name('bank.account.')->controller(BankAccountController::class)->group(function() {
+        Route::get('/', 'index')->name('index');
+        Route::get('/fetch', 'fetch')->name('fetch');
+        Route::get('/add', 'add')->name('add');
+        Route::get('/edit/{bank}', 'edit')->name('edit');
+        Route::post('/save', 'save')->name('save');
+        Route::put('/update/{bank}', 'update')->name('update');
+        Route::get('/delete/{bank}', 'delete')->name('delete');
+    });
+
+    Route::prefix('paypal-accounts')->name('paypal.account.')->controller(PayPalAccountController::class)->group(function() {
+        Route::get('/', 'index')->name('index');
+        Route::get('/fetch', 'fetch')->name('fetch');
+        Route::get('/add', 'add')->name('add');
+        Route::get('/edit/{paypal}', 'edit')->name('edit');
+        Route::post('/save', 'save')->name('save');
+        Route::put('/update/{paypal}', 'update')->name('update');
+        Route::get('/delete/{paypal}', 'delete')->name('delete');
     });
 });

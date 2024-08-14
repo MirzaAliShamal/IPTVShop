@@ -64,12 +64,14 @@
                                     <div class="row justify-content-center">
                                         @foreach ($paypalCards as $paypalCard)
                                             <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-                                                <div class="funds-card gift-card">
-                                                    <div class="funds-logo">
-                                                        <img src="{{ asset('app/images/paypal-icon.png') }}" alt="">
+                                                <a href="{{ route('funds.paypal', $paypalCard->id) }}" class="d-block">
+                                                    <div class="funds-card gift-card">
+                                                        <div class="funds-logo">
+                                                            <img src="{{ asset('app/images/paypal-icon.png') }}" alt="">
+                                                        </div>
+                                                        <span class="funds-price">{{ $paypalCard->amount }}€</span>
                                                     </div>
-                                                    <span class="funds-price">{{ $paypalCard->amount }}€</span>
-                                                </div>
+                                                </a>
                                             </div>
                                         @endforeach
                                     </div>
@@ -87,12 +89,14 @@
                                     <div class="row justify-content-center">
                                         @foreach ($visaCards as $visaCard)
                                             <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-                                                <div class="funds-card gift-card">
-                                                    <div class="funds-logo">
-                                                        <img src="{{ asset('app/images/visa-card.png') }}" alt="">
+                                                <a href="{{ route('funds.visa', $visaCard->id) }}" class="d-block">
+                                                    <div class="funds-card gift-card">
+                                                        <div class="funds-logo">
+                                                            <img src="{{ asset('app/images/visa-card.png') }}" alt="">
+                                                        </div>
+                                                        <span class="funds-price">{{ $visaCard->amount }}€</span>
                                                     </div>
-                                                    <span class="funds-price">{{ $visaCard->amount }}€</span>
-                                                </div>
+                                                </a>
                                             </div>
                                         @endforeach
                                     </div>
