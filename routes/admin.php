@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\FundsCardController;
 use App\Http\Controllers\Admin\IPTVServiceController;
 
 /*
@@ -48,5 +49,17 @@ Route::middleware('auth', 'admin')->group(function () {
         Route::post('/save', 'save')->name('save');
         Route::put('/update/{product}', 'update')->name('update');
         Route::get('/delete/{product}', 'delete')->name('delete');
+    });
+
+    Route::prefix('funds-cards')->name('funds.card.')->controller(FundsCardController::class)->group(function() {
+        Route::get('/giftcard', 'giftcard')->name('giftcard');
+        Route::get('/paypal', 'paypal')->name('paypal');
+        Route::get('/visa', 'visa')->name('visa');
+        Route::get('/fetch', 'fetch')->name('fetch');
+        Route::get('/add', 'add')->name('add');
+        Route::get('/edit/{fundsCard}', 'edit')->name('edit');
+        Route::post('/save', 'save')->name('save');
+        Route::put('/update/{fundsCard}', 'update')->name('update');
+        Route::get('/delete/{fundsCard}', 'delete')->name('delete');
     });
 });

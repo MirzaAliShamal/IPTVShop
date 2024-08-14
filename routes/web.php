@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Customer\IPTVController;
+use App\Http\Controllers\Customer\FundsController;
 use App\Http\Controllers\Customer\ProductController;
 use App\Http\Controllers\Customer\ServiceController;
 use App\Http\Controllers\Customer\DashboardController;
@@ -45,4 +46,8 @@ Route::middleware('auth', 'customer', 'otp.verify')->group(function () {
     Route::get('/popular-services', [ServiceController::class, 'index'])->name('services.index');
 
     Route::get('/popular-products', [ProductController::class, 'index'])->name('products.index');
+
+    Route::prefix('funds')->name('funds.')->group(function () {
+        Route::get('/index', [FundsController::class, 'index'])->name('index');
+    });
 });

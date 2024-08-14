@@ -88,7 +88,7 @@
                         </a>
                     </div>
                     <div class="menu-item">
-                        <a href="" class="menu-link">
+                        <a href="{{ route('funds.index') }}" class="menu-link @routeis('funds.*') active @endrouteis">
                             <span class="menu-icon">
                                 <svg width="28" height="32" viewBox="0 0 28 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <mask id="path-1-outside-1_106_32" maskUnits="userSpaceOnUse" x="0" y="0" width="28" height="32" fill="black">

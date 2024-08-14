@@ -595,3 +595,85 @@ table tbody tr td {
     font-size: 20px;
     font-weight: 500;
 }
+
+
+
+/* Funds Card */
+.payment-methods {
+    border: 2px solid transparent;
+    border-radius: 5px;
+    transition: 0.3s ease all;
+}
+
+.payment-methods img {
+    border-radius: 5px;
+}
+
+.payment-methods.active.giftcard-method,
+.payment-methods.giftcard-method:hover {
+    border-color: #C71511;
+    transition: 0.3s ease all;
+}
+
+.payment-methods.active.paypal-method,
+.payment-methods.paypal-method:hover {
+    border-color: #019CDE;
+    transition: 0.3s ease all;
+}
+
+.payment-methods.active.visa-method,
+.payment-methods.visa-method:hover {
+    border-color: #55BD8B;
+    transition: 0.3s ease all;
+}
+
+.funds-card {
+    background-color: #E0E0E0;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 200px;
+    padding: 1rem 1.75rem;
+    margin-bottom: 1.5rem;
+    border-radius: 5px;
+    border: 2px solid #E0E0E0;
+    transition: 0.3s ease all;
+    cursor: pointer;
+}
+
+.funds-card .funds-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.funds-card .funds-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.funds-card .funds-price {
+    display: inline-block;
+    font-size: 36px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.funds-card.gift-card:hover {
+    border: 2px solid #C71511;
+    transition: 0.3s ease all;
+}
+
+.funds-card.paypal-card:hover {
+    border: 2px solid #019CDE;
+    transition: 0.3s ease all;
+}
+
+.funds-card.visa-card:hover {
+    border: 2px solid #55BD8B;
+    transition: 0.3s ease all;
+}
