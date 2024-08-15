@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FundsCardController;
 use App\Http\Controllers\Admin\BankAccountController;
 use App\Http\Controllers\Admin\IPTVServiceController;
+use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\PayPalAccountController;
 
 /*
@@ -69,6 +70,17 @@ Route::middleware('auth', 'admin')->group(function () {
         Route::post('/save', 'save')->name('save');
         Route::put('/update/{fundsCard}', 'update')->name('update');
         Route::get('/delete/{fundsCard}', 'delete')->name('delete');
+    });
+
+    Route::prefix('transactions')->name('transaction.')->controller(TransactionController::class)->group(function() {
+        Route::get('/paypal', 'paypal')->name('paypal');
+        Route::get('/visa', 'visa')->name('visa');
+
+        Route::get('/fetch', 'fetch')->name('fetch');
+        Route::get('/add', 'add')->name('add');
+        Route::get('/edit/{transaction}', 'edit')->name('edit');
+        Route::put('/update/{transaction}', 'update')->name('update');
+        Route::get('/delete/{bank}', 'delete')->name('delete');
     });
 
     Route::prefix('bank-accounts')->name('bank.account.')->controller(BankAccountController::class)->group(function() {
