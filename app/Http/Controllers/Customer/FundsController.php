@@ -72,4 +72,9 @@ class FundsController extends Controller
     {
         return view('app.funds.thankyou', get_defined_vars());
     }
+
+    public function insufficient()
+    {
+        return view('app.funds.insufficient', get_defined_vars());
+    }
 }

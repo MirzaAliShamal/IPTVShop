@@ -39,6 +39,9 @@ Route::get('/verification', function() {
 
 Route::middleware('auth', 'customer', 'otp.verify')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/shipping-address', [DashboardController::class, 'shippingAddress'])->name('shipping.address');
+    Route::post('/shipping-address', [DashboardController::class, 'storeShippingAddress'])->name('store.shipping.address');
+    Route::get('/help', [DashboardController::class, 'help'])->name('help');
 
     Route::get('/iptv/test', [IPTVController::class, 'test'])->name('iptv.test');
     Route::get('/iptv/services', [IPTVController::class, 'services'])->name('iptv.services');
@@ -53,5 +56,6 @@ Route::middleware('auth', 'customer', 'otp.verify')->group(function () {
         Route::get('/visa/{id}', [FundsController::class, 'visa'])->name('visa');
         Route::post('/purchase/{id}', [FundsController::class, 'purchase'])->name('purchase');
         Route::get('/thank-you', [FundsController::class, 'thankyou'])->name('thankyou');
+        Route::get('/insufficient-balance', [FundsController::class, 'insufficient'])->name('insufficient');
     });
 });

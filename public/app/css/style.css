@@ -93,6 +93,10 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0px 4px 10px 0px #00000040;
 }
 
+textarea.form-control {
+    height: 100%;
+}
+
 .form-check {
     min-height: auto;
     padding: 0px;
@@ -252,6 +256,34 @@ table tbody tr td {
 .rounded-end {
     border-top-right-radius: 15px !important;
     border-bottom-right-radius: 15px !important;
+}
+
+
+
+.accordion {
+    border: 0px;
+    border-radius: 0px;
+}
+
+.accordion .accordion-item {
+    background-color: transparent;
+    border: 0px;
+    border-radius: 0 !important;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.accordion .accordion-item .accordion-button {
+    background-color: transparent;
+    font-weight: 500;
+    color: #212529 !important;
+}
+
+.accordion .accordion-item .accordion-button:focus,
+.accordion .accordion-item .accordion-button:focus-visible,
+.accordion .accordion-item .accordion-button:focus-within,
+.accordion .accordion-item .accordion-button:active {
+    box-shadow: none;
+    outline: none;
 }
 
 
