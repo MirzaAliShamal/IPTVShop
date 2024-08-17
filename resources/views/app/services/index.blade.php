@@ -25,7 +25,7 @@
                                     </div>
                                     <div class="section-body d-flex flex-column justify-content-center align-items-center gap-3">
                                         <span class="section-price">{{ $s->price.'£' }}</span>
-                                        <a href="" class="btn btn-secondary">Buy Now</a>
+                                        <a href="{{ route('services.purchase', $s->id) }}" class="btn btn-secondary">Buy Now</a>
                                     </div>
                                 </div>
                             </div>

@@ -26,7 +26,7 @@
                                         </div>
                                         <div class="section-body d-flex flex-column justify-content-center align-items-center gap-3">
                                             <span class="section-price">{{ $ss->price.'£' }}</span>
-                                            <a href="" class="btn btn-secondary">Buy Now</a>
+                                            <a href="{{ route('iptv.purchase', $ss->id) }}" class="btn btn-secondary">Buy Now</a>
                                         </div>
                                     </div>
                                 </div>

@@ -43,12 +43,28 @@ Route::middleware('auth', 'customer', 'otp.verify')->group(function () {
     Route::post('/shipping-address', [DashboardController::class, 'storeShippingAddress'])->name('store.shipping.address');
     Route::get('/help', [DashboardController::class, 'help'])->name('help');
 
-    Route::get('/iptv/test', [IPTVController::class, 'test'])->name('iptv.test');
-    Route::get('/iptv/services', [IPTVController::class, 'services'])->name('iptv.services');
+    Route::prefix('iptv')->name('iptv.')->group(function () {
+        Route::get('/test', [IPTVController::class, 'test'])->name('test');
+        Route::get('/get-test', [IPTVController::class, 'getTest'])->name('get.test');
+        Route::get('/my-subscriptions', [IPTVController::class, 'mySubscription'])->name('my.subscription');
+        Route::get('/services', [IPTVController::class, 'services'])->name('services');
+        Route::get('/purchase/{id}', [IPTVController::class, 'purchase'])->name('purchase');
+        Route::get('/thank-you', [IPTVController::class, 'thankyou'])->name('thankyou');
+    });
 
-    Route::get('/popular-services', [ServiceController::class, 'index'])->name('services.index');
+    Route::prefix('popular-services')->name('services.')->group(function () {
+        Route::get('/', [ServiceController::class, 'index'])->name('index');
+        Route::get('/my-services', [ServiceController::class, 'myService'])->name('my.service');
+        Route::get('/purchase/{id}', [ServiceController::class, 'purchase'])->name('purchase');
+        Route::get('/thank-you', [ServiceController::class, 'thankyou'])->name('thankyou');
+    });
 
-    Route::get('/popular-products', [ProductController::class, 'index'])->name('products.index');
+    Route::prefix('popular-products')->name('products.')->group(function () {
+        Route::get('/', [ProductController::class, 'index'])->name('index');
+        Route::get('/my-products', [ProductController::class, 'myProduct'])->name('my.product');
+        Route::get('/purchase/{id}', [ProductController::class, 'purchase'])->name('purchase');
+        Route::get('/thank-you', [ProductController::class, 'thankyou'])->name('thankyou');
+    });
 
     Route::prefix('funds')->name('funds.')->group(function () {
         Route::get('/index', [FundsController::class, 'index'])->name('index');

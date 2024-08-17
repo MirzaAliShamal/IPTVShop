@@ -3,13 +3,18 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\GiftCardController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FundsCardController;
 use App\Http\Controllers\Admin\BankAccountController;
 use App\Http\Controllers\Admin\IPTVServiceController;
 use App\Http\Controllers\Admin\TransactionController;
+use App\Http\Controllers\Admin\ProductOrderController;
 use App\Http\Controllers\Admin\PayPalAccountController;
+use App\Http\Controllers\Admin\TestIptvAccountController;
+use App\Http\Controllers\Admin\IPTVSubscriptionController;
+use App\Http\Controllers\Admin\ServiceSubscriptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +45,16 @@ Route::middleware('auth', 'admin')->group(function () {
         Route::get('/delete/{iptvService}', 'delete')->name('delete');
     });
 
+    Route::prefix('test-iptv-accounts')->name('test.iptv.')->controller(TestIptvAccountController::class)->group(function() {
+        Route::get('/', 'index')->name('index');
+        Route::get('/fetch', 'fetch')->name('fetch');
+        Route::get('/add', 'add')->name('add');
+        Route::get('/edit/{testIptvAccount}', 'edit')->name('edit');
+        Route::post('/save', 'save')->name('save');
+        Route::put('/update/{testIptvAccount}', 'update')->name('update');
+        Route::get('/delete/{testIptvAccount}', 'delete')->name('delete');
+    });
+
     Route::prefix('services')->name('service.')->controller(ServiceController::class)->group(function() {
         Route::get('/', 'index')->name('index');
         Route::get('/fetch', 'fetch')->name('fetch');
@@ -61,7 +76,6 @@ Route::middleware('auth', 'admin')->group(function () {
     });
 
     Route::prefix('funds-cards')->name('funds.card.')->controller(FundsCardController::class)->group(function() {
-        Route::get('/giftcard', 'giftcard')->name('giftcard');
         Route::get('/paypal', 'paypal')->name('paypal');
         Route::get('/visa', 'visa')->name('visa');
         Route::get('/fetch', 'fetch')->name('fetch');
@@ -72,6 +86,16 @@ Route::middleware('auth', 'admin')->group(function () {
         Route::get('/delete/{fundsCard}', 'delete')->name('delete');
     });
 
+    Route::prefix('gift-cards')->name('gift.card.')->controller(GiftCardController::class)->group(function() {
+        Route::get('/', 'index')->name('index');
+        Route::get('/fetch', 'fetch')->name('fetch');
+        Route::get('/add', 'add')->name('add');
+        Route::get('/edit/{giftCard}', 'edit')->name('edit');
+        Route::post('/save', 'save')->name('save');
+        Route::put('/update/{giftCard}', 'update')->name('update');
+        Route::get('/delete/{giftCard}', 'delete')->name('delete');
+    });
+
     Route::prefix('transactions')->name('transaction.')->controller(TransactionController::class)->group(function() {
         Route::get('/paypal', 'paypal')->name('paypal');
         Route::get('/visa', 'visa')->name('visa');
@@ -80,7 +104,33 @@ Route::middleware('auth', 'admin')->group(function () {
         Route::get('/add', 'add')->name('add');
         Route::get('/edit/{transaction}', 'edit')->name('edit');
         Route::put('/update/{transaction}', 'update')->name('update');
-        Route::get('/delete/{bank}', 'delete')->name('delete');
+        Route::get('/delete/{transaction}', 'delete')->name('delete');
+    });
+
+    Route::prefix('iptv-subscriptions')->name('iptv.subscription.')->controller(IPTVSubscriptionController::class)->group(function() {
+        Route::get('/', 'index')->name('index');
+        Route::get('/fetch', 'fetch')->name('fetch');
+        Route::get('/edit/{subscription}', 'edit')->name('edit');
+        Route::put('/update/{subscription}', 'update')->name('update');
+        Route::get('/delete/{subscription}', 'delete')->name('delete');
+        Route::get('/suspend/{subscription}', 'suspend')->name('suspend');
+    });
+
+    Route::prefix('services-subscriptions')->name('service.subscription.')->controller(ServiceSubscriptionController::class)->group(function() {
+        Route::get('/', 'index')->name('index');
+        Route::get('/fetch', 'fetch')->name('fetch');
+        Route::get('/edit/{subscription}', 'edit')->name('edit');
+        Route::put('/update/{subscription}', 'update')->name('update');
+        Route::get('/delete/{subscription}', 'delete')->name('delete');
+        Route::get('/suspend/{subscription}', 'suspend')->name('suspend');
+    });
+
+    Route::prefix('products-orders')->name('products.order.')->controller(ProductOrderController::class)->group(function() {
+        Route::get('/', 'index')->name('index');
+        Route::get('/fetch', 'fetch')->name('fetch');
+        Route::get('/edit/{productOrder}', 'edit')->name('edit');
+        Route::put('/update/{productOrder}', 'update')->name('update');
+        Route::get('/delete/{productOrder}', 'delete')->name('delete');
     });
 
     Route::prefix('bank-accounts')->name('bank.account.')->controller(BankAccountController::class)->group(function() {

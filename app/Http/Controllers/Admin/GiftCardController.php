@@ -3,67 +3,73 @@
 namespace App\Http\Controllers\Admin;
 
 use DataTables;
-use App\Models\FundsCard;
+use App\Models\GiftCard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
-class FundsCardController extends Controller
+class GiftCardController extends Controller
 {
-    public function paypal()
+    public function index()
     {
-        return view('admin.funds-card.paypal', get_defined_vars());
-    }
-
-    public function visa()
-    {
-        return view('admin.funds-card.visa', get_defined_vars());
+        return view('admin.gift_card.index', get_defined_vars());
     }
 
     public function fetch(Request $request)
     {
-        $list = FundsCard::where('type', $request->type)->orderBy('amount', 'ASC');
+        $list = GiftCard::orderBy('amount', 'DESC');
 
         return Datatables::of($list)
+            ->editColumn('link', function($row) {
+                $html = '';
+                $html .= '
+                    <div class="d-flex align-items-center">
+                        <div class="d-flex justify-content-start flex-column">
+                            <a href='.$row->link.' class="text-dark fw-bold text-hover-primary fs-6">'.$row->link.'</a>
+                        </div>
+                    </div>
+                ';
+                return $html;
+            })
             ->editColumn('amount', function($row) {
                 return $row->amount.'£';
             })
             ->addColumn('action', function($row){
                 $html = '';
                 $html .= '
-                    <a href="'.route('admin.funds.card.edit', $row->id).'" class="me-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Update Record">
+                    <a href="'.route('admin.gift.card.edit', $row->id).'" class="me-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Update Record">
                         <i class="bi bi-pencil-square fs-4 cursor-pointer text-primary"></i>
                     </a>
-                    <a href="'.route('admin.funds.card.delete', $row->id).'" class="me-2 delete-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Record">
+                    <a href="'.route('admin.gift.card.delete', $row->id).'" class="me-2 delete-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Record">
                         <i class="bi bi-trash fs-4 cursor-pointer text-danger"></i>
                     </a>
                 ';
                 return $html;
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['link', 'action'])
             ->make(true);
     }
 
     public function add()
     {
-        return view('admin.funds-card.add', get_defined_vars());
+        return view('admin.gift_card.add', get_defined_vars());
     }
 
-    public function edit(FundsCard $fundsCard)
+    public function edit(GiftCard $giftCard)
     {
-        return view('admin.funds-card.edit', get_defined_vars());
+        return view('admin.gift_card.edit', get_defined_vars());
     }
 
     public function save(Request $request)
     {
         $request->validate([
-            'type' => 'required|in:paypal,visa',
+            'link' => 'required',
             'amount' => 'required|numeric'
         ]);
 
         DB::beginTransaction();
         try {
-            $fundsCard = FundsCard::create($request->except('_token'));
+            $giftCard = GiftCard::create($request->except('_token'));
             DB::commit();
             return redirect()->back()->with('success', 'Record added successfully!');
         } catch (\Exception $e) {
@@ -72,16 +78,16 @@ class FundsCardController extends Controller
         }
     }
 
-    public function update(Request $request, FundsCard $fundsCard)
+    public function update(Request $request, GiftCard $giftCard)
     {
         $request->validate([
-            'type' => 'required|in:paypal,visa',
+            'link' => 'required',
             'amount' => 'required|numeric'
         ]);
 
         DB::beginTransaction();
         try {
-            $fundsCard->update($request->except('_token'));
+            $giftCard->update($request->except('_token'));
             DB::commit();
             return redirect()->back()->with('success', 'Record added successfully!');
         } catch (\Exception $e) {
@@ -90,9 +96,9 @@ class FundsCardController extends Controller
         }
     }
 
-    public function delete(FundsCard $fundsCard)
+    public function delete(GiftCard $giftCard)
     {
-        $fundsCard->delete();
+        $giftCard->delete();
         return redirect()->back()->with('Record deleted successfully!');
     }
 }

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
-@section('title', 'Add Funds Card')
-@section('page-title', 'Add Funds Card')
+@section('title', 'Gift Cards')
+@section('page-title', 'Gift Cards')
 
 @section('breadcrumb')
     <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
@@ -12,12 +12,12 @@
             <span class="bullet bg-gray-200 w-5px h-2px"></span>
         </li>
         <li class="breadcrumb-item text-muted">
-            <a href="{{ route('admin.funds.card.giftcard') }}" class="text-muted text-hover-primary">Funds Card</a>
+            <a href="{{ route('admin.gift.card.index') }}" class="text-muted text-hover-primary">Gift Card</a>
         </li>
         <li class="breadcrumb-item">
             <span class="bullet bg-gray-200 w-5px h-2px"></span>
         </li>
-        <li class="breadcrumb-item text-dark">Add Funds Card</li>
+        <li class="breadcrumb-item text-dark">Add Gift Card</li>
     </ul>
 @endsection
 
@@ -25,21 +25,17 @@
     <div class="card">
         <div class="card-header">
             <div class="card-title">
-                <h3>Add Funds Card</h3>
+                <h3>Add Gift Card</h3>
             </div>
         </div>
         <div class="card-body py-10">
-            <form action="{{ route('admin.funds.card.save') }}" method="POST" class="add-form" enctype="multipart/form-data">
+            <form action="{{ route('admin.gift.card.save') }}" method="POST" class="add-form" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-12">
                         <div class="form-group mb-5">
-                            <label class="required form-label">Type</label>
-                            <select name="type" class="form-select" data-control="select2" data-placeholder="Choose any Option">
-                                <option></option>
-                                <option value="paypal" {{ old('type') == '3' ? 'selected' : '' }}>PayPal</option>
-                                <option value="visa" {{ old('type') == '6' ? 'selected' : '' }}>Visa</option>
-                            </select>
+                            <label class="required form-label">Link</label>
+                            <input type="text" name="link" class="form-control" placeholder="e.g. https://link.com" value="{{ old('link') }}"/>
                         </div>
                     </div>
                     <div class="col-12">
@@ -54,7 +50,7 @@
                         <button type="submit" class="btn btn-primary me-2">
                             Save Changes
                         </button>
-                        <a href="{{ route('admin.funds.card.giftcard') }}" class="btn btn-secondary">
+                        <a href="{{ route('admin.gift.card.index') }}" class="btn btn-secondary">
                             Go Back
                         </a>
                     </div>
@@ -68,5 +64,5 @@
     <script>
         var laravelErrors = {!! $errors->toJson() !!};
     </script>
-    <script src="{{ asset('admin/js/funds-card/add.js?v='.rand()) }}"></script>
+    <script src="{{ asset('admin/js/gift-card/add.js?v='.rand()) }}"></script>
 @endsection

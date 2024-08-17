@@ -58,6 +58,19 @@
                     </a>
                 </div>
                 <div class="menu-item">
+                    <a class="menu-link @routeis('admin.test.iptv.*') active @endrouteis" href="{{ route('admin.test.iptv.index') }}">
+                        <span class="menu-icon">
+                            <span class="svg-icon svg-icon-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <path d="M6,8 L6,16 L18,16 L18,8 L6,8 Z M20,16 L21.381966,16 C21.7607381,16 22.1070012,16.2140024 22.2763932,16.5527864 L22.5,17 C22.6706654,17.3413307 22.5323138,17.7563856 22.190983,17.927051 C22.0950363,17.9750244 21.9892377,18 21.881966,18 L2.11803399,18 C1.73641461,18 1.42705098,17.6906364 1.42705098,17.309017 C1.42705098,17.2017453 1.45202663,17.0959467 1.5,17 L1.7236068,16.5527864 C1.89299881,16.2140024 2.23926193,16 2.61803399,16 L4,16 L4,8 C4,6.8954305 4.8954305,6 6,6 L18,6 C19.1045695,6 20,6.8954305 20,8 L20,16 Z" fill="#000000" fill-rule="nonzero"/>
+                                     <polygon fill="#000000" opacity="0.3" points="6 8 6 16 18 16 18 8"/>
+                                </svg>
+                            </span>
+                        </span>
+                        <span class="menu-title">Test IPTV Accounts</span>
+                    </a>
+                </div>
+                <div class="menu-item">
                     <a class="menu-link @routeis('admin.service.*') active @endrouteis" href="{{ route('admin.service.index') }}">
                         <span class="menu-icon">
                             <span class="svg-icon svg-icon-2">
@@ -115,14 +128,6 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link @routeis('admin.funds.card.giftcard') active @endrouteis" href="{{ route('admin.funds.card.giftcard') }}">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Giftcards</span>
-                            </a>
-                        </div>
-                        <div class="menu-item">
                             <a class="menu-link @routeis('admin.funds.card.paypal') active @endrouteis" href="{{ route('admin.funds.card.paypal') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
@@ -139,6 +144,22 @@
                             </a>
                         </div>
                     </div>
+                </div>
+                <div class="menu-item">
+                    <a class="menu-link @routeis('admin.gift.card.*') active @endrouteis" href="{{ route('admin.gift.card.index') }}">
+                        <span class="menu-icon">
+                            <span class="svg-icon svg-icon-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect x="0" y="0" width="24" height="24"/>
+                                        <path d="M4,6 L20,6 C20.5522847,6 21,6.44771525 21,7 L21,8 C21,8.55228475 20.5522847,9 20,9 L4,9 C3.44771525,9 3,8.55228475 3,8 L3,7 C3,6.44771525 3.44771525,6 4,6 Z M5,11 L10,11 C10.5522847,11 11,11.4477153 11,12 L11,19 C11,19.5522847 10.5522847,20 10,20 L5,20 C4.44771525,20 4,19.5522847 4,19 L4,12 C4,11.4477153 4.44771525,11 5,11 Z M14,11 L19,11 C19.5522847,11 20,11.4477153 20,12 L20,19 C20,19.5522847 19.5522847,20 19,20 L14,20 C13.4477153,20 13,19.5522847 13,19 L13,12 C13,11.4477153 13.4477153,11 14,11 Z" fill="#000000"/>
+                                        <path d="M14.4452998,2.16794971 C14.9048285,1.86159725 15.5256978,1.98577112 15.8320503,2.4452998 C16.1384028,2.90482849 16.0142289,3.52569784 15.5547002,3.83205029 L12,6.20185043 L8.4452998,3.83205029 C7.98577112,3.52569784 7.86159725,2.90482849 8.16794971,2.4452998 C8.47430216,1.98577112 9.09517151,1.86159725 9.5547002,2.16794971 L12,3.79814957 L14.4452998,2.16794971 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
+                                    </g>
+                                </svg>
+                            </span>
+                        </span>
+                        <span class="menu-title">GiftCards</span>
+                    </a>
                 </div>
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion @routeis('admin.transaction.*') here show @endrouteis">
                     <span class="menu-link">
@@ -177,6 +198,57 @@
                 </div>
                 <div class="menu-item">
                     <div class="menu-content pb-2">
+                        <span class="menu-section text-muted text-uppercase fs-8 ls-1">Orders</span>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <a class="menu-link @routeis('admin.iptv.subscription.*') active @endrouteis" href="{{ route('admin.iptv.subscription.index') }}">
+                        <span class="menu-icon">
+                            <span class="svg-icon svg-icon-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <path d="M4.5,6 L19.5,6 C20.8807119,6 22,6.97004971 22,8.16666667 L22,16.8333333 C22,18.0299503 20.8807119,19 19.5,19 L4.5,19 C3.11928813,19 2,18.0299503 2,16.8333333 L2,8.16666667 C2,6.97004971 3.11928813,6 4.5,6 Z M4,8 L4,17 L20,17 L20,8 L4,8 Z" fill="#000000" fill-rule="nonzero"/>
+                                    <polygon fill="#000000" opacity="0.3" points="4 8 4 17 20 17 20 8"/>
+                                    <rect fill="#000000" opacity="0.3" x="7" y="20" width="10" height="1" rx="0.5"/>
+                                </svg>
+                            </span>
+                        </span>
+                        <span class="menu-title">IPTV Subscriptions</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a class="menu-link @routeis('admin.service.subscription.*') active @endrouteis" href="{{ route('admin.service.subscription.index') }}">
+                        <span class="menu-icon">
+                            <span class="svg-icon svg-icon-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path opacity="0.3" d="M5 8.04999L11.8 11.95V19.85L5 15.85V8.04999Z" fill="black"/>
+                                    <path d="M20.1 6.65L12.3 2.15C12 1.95 11.6 1.95 11.3 2.15L3.5 6.65C3.2 6.85 3 7.15 3 7.45V16.45C3 16.75 3.2 17.15 3.5 17.25L11.3 21.75C11.5 21.85 11.6 21.85 11.8 21.85C12 21.85 12.1 21.85 12.3 21.75L20.1 17.25C20.4 17.05 20.6 16.75 20.6 16.45V7.45C20.6 7.15 20.4 6.75 20.1 6.65ZM5 15.85V7.95L11.8 4.05L18.6 7.95L11.8 11.95V19.85L5 15.85Z" fill="black"/>
+                                </svg>
+                            </span>
+                        </span>
+                        <span class="menu-title">Services Subscriptions</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a class="menu-link @routeis('admin.products.order*') active @endrouteis" href="{{ route('admin.products.order.index') }}">
+                        <span class="menu-icon">
+                            <span class="svg-icon svg-icon-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path opacity="0.3" d="M3 13H10C10.6 13 11 13.4 11 14V21C11 21.6 10.6 22 10 22H3C2.4 22 2 21.6 2 21V14C2 13.4 2.4 13 3 13Z" fill="black"/>
+                                    <path d="M7 16H6C5.4 16 5 15.6 5 15V13H8V15C8 15.6 7.6 16 7 16Z" fill="black"/>
+                                    <path opacity="0.3" d="M14 13H21C21.6 13 22 13.4 22 14V21C22 21.6 21.6 22 21 22H14C13.4 22 13 21.6 13 21V14C13 13.4 13.4 13 14 13Z" fill="black"/>
+                                    <path d="M18 16H17C16.4 16 16 15.6 16 15V13H19V15C19 15.6 18.6 16 18 16Z" fill="black"/>
+                                    <path opacity="0.3" d="M3 2H10C10.6 2 11 2.4 11 3V10C11 10.6 10.6 11 10 11H3C2.4 11 2 10.6 2 10V3C2 2.4 2.4 2 3 2Z" fill="black"/>
+                                    <path d="M7 5H6C5.4 5 5 4.6 5 4V2H8V4C8 4.6 7.6 5 7 5Z" fill="black"/>
+                                    <path opacity="0.3" d="M14 2H21C21.6 2 22 2.4 22 3V10C22 10.6 21.6 11 21 11H14C13.4 11 13 10.6 13 10V3C13 2.4 13.4 2 14 2Z" fill="black"/>
+                                    <path d="M18 5H17C16.4 5 16 4.6 16 4V2H19V4C19 4.6 18.6 5 18 5Z" fill="black"/>
+                                </svg>
+                            </span>
+                        </span>
+                        <span class="menu-title">Products Orders</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-content pb-2">
                         <span class="menu-section text-muted text-uppercase fs-8 ls-1">Settings</span>
                     </div>
                 </div>
@@ -192,6 +264,8 @@
                         </span>
                         <span class="menu-title">Bank Accounts</span>
                     </a>
+                </div>
+                <div class="menu-item">
                     <a class="menu-link @routeis('admin.paypal.account.*') active @endrouteis" href="{{ route('admin.paypal.account.index') }}">
                         <span class="menu-icon">
                             <span class="svg-icon svg-icon-2">

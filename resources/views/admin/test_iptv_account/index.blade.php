@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
-@section('title', 'Giftcards')
-@section('page-title', 'Giftcards')
+@section('title', 'Test IPTV Accounts')
+@section('page-title', 'Test IPTV Accounts')
 
 @section('breadcrumb')
     <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
@@ -11,7 +11,7 @@
         <li class="breadcrumb-item">
             <span class="bullet bg-gray-200 w-5px h-2px"></span>
         </li>
-        <li class="breadcrumb-item text-dark">Giftcards</li>
+        <li class="breadcrumb-item text-dark">Test IPTV Accounts</li>
     </ul>
 @endsection
 
@@ -39,7 +39,9 @@
                         autocomplete="off">
                 </div>
             </div>
-            <div class="card-toolbar"></div>
+            <div class="card-toolbar">
+                <a href="{{ route('admin.test.iptv.add') }}" class="btn btn-sm btn-primary">Add New Record</a>
+            </div>
         </div>
         <div class="card-body py-3">
             <div class="table-responsive">
@@ -47,7 +49,8 @@
                     <thead>
                         <tr class="fw-bolder text-muted bg-light">
                             <th class="ps-4 rounded-start">ID</th>
-                            <th>Amount</th>
+                            <th>Account Details</th>
+                            <th>User</th>
                             <th class="pe-4 text-end rounded-end">Action</th>
                         </tr>
                     </thead>
@@ -59,5 +62,5 @@
 @endsection
 
 @section('js')
-    <script src="{{ asset('admin/js/funds-card/giftcard.js?v='.rand()) }}"></script>
+    <script src="{{ asset('admin/js/test-iptv-account/index.js?v='.rand()) }}"></script>
 @endsection
