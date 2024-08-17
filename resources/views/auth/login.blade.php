@@ -42,6 +42,15 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <!-- Google Recaptcha Widget-->
+                            <div class="g-recaptcha @error('g-recaptcha-response') is-invalid @enderror" data-sitekey={{ config('services.recaptcha.key') }}></div>
+                            @error('g-recaptcha-response')
+                                <div class="invalid-feedback">
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <button type="submit" class="btn btn-primary w-100">Sign in</button>
                         </div>
                     </form>
@@ -58,4 +67,7 @@
         </div>
     </div>
 </div>
+@endsection
+@section('js')
+    <script async src="https://www.google.com/recaptcha/api.js"></script>
 @endsection

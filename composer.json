@@ -10,7 +10,10 @@
         "laravel/breeze": "^1.29",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
+        "laravel/socialite": "^5.15",
         "laravel/tinker": "^2.8",
+        "socialiteproviders/facebook": "^4.1",
+        "socialiteproviders/google": "^4.1",
         "yajra/laravel-datatables": "^10.1"
     },
     "require-dev": {
