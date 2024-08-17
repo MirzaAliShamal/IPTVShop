@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\IPTVServiceController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\ProductOrderController;
 use App\Http\Controllers\Admin\PayPalAccountController;
+use App\Http\Controllers\Admin\RedeemGiftCardController;
 use App\Http\Controllers\Admin\TestIptvAccountController;
 use App\Http\Controllers\Admin\IPTVSubscriptionController;
 use App\Http\Controllers\Admin\ServiceSubscriptionController;
@@ -105,6 +106,14 @@ Route::middleware('auth', 'admin')->group(function () {
         Route::get('/edit/{transaction}', 'edit')->name('edit');
         Route::put('/update/{transaction}', 'update')->name('update');
         Route::get('/delete/{transaction}', 'delete')->name('delete');
+    });
+
+    Route::prefix('redeem-gift-cards')->name('redeem.gift.card.')->controller(RedeemGiftCardController::class)->group(function() {
+        Route::get('/', 'index')->name('index');
+        Route::get('/fetch', 'fetch')->name('fetch');
+        Route::get('/edit/{userGiftCard}', 'edit')->name('edit');
+        Route::put('/update/{userGiftCard}', 'update')->name('update');
+        Route::get('/delete/{userGiftCard}', 'delete')->name('delete');
     });
 
     Route::prefix('iptv-subscriptions')->name('iptv.subscription.')->controller(IPTVSubscriptionController::class)->group(function() {

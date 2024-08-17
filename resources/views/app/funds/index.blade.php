@@ -41,12 +41,14 @@
                                     <div class="row justify-content-center">
                                         @foreach ($giftCards as $giftcard)
                                             <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-                                                <div class="funds-card gift-card">
-                                                    <div class="funds-logo">
-                                                        <img src="{{ asset('app/images/giftcard.png') }}" alt="">
+                                                <a href="{{ $giftcard->link }}" target="_blank">
+                                                    <div class="funds-card gift-card">
+                                                        <div class="funds-logo">
+                                                            <img src="{{ asset('app/images/giftcard.png') }}" alt="">
+                                                        </div>
+                                                        <span class="funds-price">{{ $giftcard->amount }}€</span>
                                                     </div>
-                                                    <span class="funds-price">{{ $giftcard->amount }}€</span>
-                                                </div>
+                                                </a>
                                             </div>
                                         @endforeach
                                     </div>

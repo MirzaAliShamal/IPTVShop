@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Customer;
 
+use App\Models\GiftCard;
 use App\Models\FundsCard;
 use App\Models\BankAccount;
 use App\Models\Transaction;
+use App\Models\UserGiftCard;
 use Illuminate\Http\Request;
 use App\Models\PayPalAccount;
 use App\Http\Controllers\Controller;
@@ -14,7 +16,7 @@ class FundsController extends Controller
 {
     public function index()
     {
-        $giftCards = FundsCard::where('type', 'giftcard')->orderBy('amount', 'ASC')->get();
+        $giftCards = GiftCard::orderBy('amount', 'ASC')->get();
         $paypalCards = FundsCard::where('type', 'paypal')->orderBy('amount', 'ASC')->get();
         $visaCards = FundsCard::where('type', 'visa')->orderBy('amount', 'ASC')->get();
         return view('app.funds.index', get_defined_vars());
@@ -76,5 +78,21 @@ class FundsController extends Controller
     public function insufficient()
     {
         return view('app.funds.insufficient', get_defined_vars());
+    }
+
+    public function redeemGiftCard()
+    {
+        return view('app.funds.redeem_giftcard', get_defined_vars());
+    }
+
+    public function storeRedeemGiftCard(Request $request)
+    {
+        $user  = Auth::user();
+        $redeem = UserGiftCard::create([
+            'user_id' => $user->id,
+            'user_link' => $request->user_link,
+            'code' => $request->code,
+        ]);
+        return redirect()->route('funds.thankyou');
     }
 }

@@ -73,5 +73,7 @@ Route::middleware('auth', 'customer', 'otp.verify')->group(function () {
         Route::post('/purchase/{id}', [FundsController::class, 'purchase'])->name('purchase');
         Route::get('/thank-you', [FundsController::class, 'thankyou'])->name('thankyou');
         Route::get('/insufficient-balance', [FundsController::class, 'insufficient'])->name('insufficient');
+        Route::get('/redeem-giftcard', [FundsController::class, 'redeemGiftCard'])->name('redeem.giftcard');
+        Route::post('/redeem-giftcard', [FundsController::class, 'storeRedeemGiftCard'])->name('store.redeem.giftcard');
     });
 });

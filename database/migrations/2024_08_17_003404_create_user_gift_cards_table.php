@@ -14,14 +14,13 @@ return new class extends Migration
         Schema::create('user_gift_cards', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->foreignId('gift_card_id');
             $table->longText('user_link');
             $table->string('code');
+            $table->integer('amount')->nullable();
 
             $table->enum('status', ['pending', 'redeemed', 'expired'])->default('pending');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('gift_card_id')->references('id')->on('gift_cards')->onDelete('cascade');
             $table->timestamps();
         });
     }
