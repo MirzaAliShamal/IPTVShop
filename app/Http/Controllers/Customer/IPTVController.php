@@ -10,6 +10,9 @@ use App\Models\TestIptvAccount;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Customer\TestIptvStartedEmail;
+use App\Mail\Customer\IptvSubscriptionPurchasedEmail;
 
 class IPTVController extends Controller
 {
@@ -38,12 +41,14 @@ class IPTVController extends Controller
             $account->user_id = $user->id;
             $account->save();
 
-            $user->userTestIptvAccounts()->create([
+            $testIptvAccount = $user->userTestIptvAccounts()->create([
                 'test_iptv_account_id' => $account->id,
                 'started_at' => Carbon::now(),
                 'expired_at' => Carbon::now()->addDays(1),
                 'status' => 'started',
             ]);
+
+            Mail::to($user->email)->send(new TestIptvStartedEmail($user, $testIptvAccount));
 
             DB::commit();
         } catch (\Exception $e) {
@@ -84,7 +89,7 @@ class IPTVController extends Controller
 
         DB::beginTransaction();
         try {
-            $subcription = Subscription::create([
+            $subscription = Subscription::create([
                 'user_id' => Auth::user()->id,
                 'type' => 'iptv',
                 'title' => $iptvService->duration.' Month Iptv Subscription',
@@ -92,11 +97,13 @@ class IPTVController extends Controller
                 'order_placed_at' => Carbon::now()
             ]);
 
-            if ($subcription) {
+            if ($subscription) {
                 $user = Auth::user();
                 $user->wallet_balance = $user->wallet_balance - $iptvService->price;
                 $user->save();
             }
+
+            Mail::to($user->email)->send(new IptvSubscriptionPurchasedEmail($user, $subscription));
 
             DB::commit();
         } catch (\Exception $e) {

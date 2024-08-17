@@ -20,27 +20,29 @@
                                     <tr><td><a href="{{ env('APP_URL') }}"><img src="{{ asset('app/images/iptv-shop-icon-32x32.png') }}" alt="" style="margin-left: auto; margin-right: auto; display:block; margin-bottom: 10px; height: 40px;"></a></td></tr>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                         <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; color: #272727; font-size: 24px; font-weight: 700; text-align: center; vertical-align: top; margin: 0; padding: 0 0 10px;" valign="top">
-                                            Verify your Email address
+                                            IPTV Subscription Purchased
                                         </td>
                                     </tr>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                         <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; color: #272727; font-size: 14px; vertical-align: top; margin: 0; padding: 10px 10px;" valign="top">
-                                            Use this code to verify your {{ env('APP_NAME') }} account
+                                            Hi {{ $user->name }}, Thank you for your purchase of our IPTV subscription! We appreciate your trust in our service.
                                         </td>
                                     </tr>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-                                        <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 10px 10px;" valign="top">
-                                            Code will expire in 15 minutes.
+                                        <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; color: #272727; font-size: 14px; vertical-align: top; margin: 0; padding: 10px 10px;" valign="top">
+                                            We are currently processing your order and will display the details shortly
                                         </td>
                                     </tr>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-                                        <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 36px; font-weight:bold; vertical-align: top; margin: 0; padding: 10px 10px; text-align:center;" valign="top">
-                                            {{ $otp }}
+                                        <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; color: #272727; font-size: 14px; vertical-align: top; margin: 0; padding: 10px 10px;" valign="top">
+                                            To access your subscription details. Please navigate to the "My IPTV Subscription" section where you will find comprehensive information about your package.
                                         </td>
                                     </tr>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                         <td class="content-block" itemprop="handler" itemscope itemtype="http://schema.org/HttpActionHandler" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 10px 10px;" valign="top">
-                                            <a href="{{ route('dashboard.index') }}" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box;background: #55BD8B;border-color: #55BD8B;border-color: #55BD8B;display:flex;justify-content:center;align-items:center;height: 38.31px;border-radius: 12px;box-shadow: 0px 4px 10px 0px #E9444B40;font-size: 14px;font-weight: 500;line-height: 16.8px;letter-spacing: 0.03em;text-align: center;width: 50%; margin: 2rem auto;color: #fff; text-decoration:none;padding:0.375rem 0.75rem; vertical-align:middle;">Confirm email address</a>
+                                            <a href="{{ route('iptv.my.subscription') }}" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box;background: #55BD8B;border-color: #55BD8B;border-color: #55BD8B;display:flex;justify-content:center;align-items:center;height: 38.31px;border-radius: 12px;box-shadow: 0px 4px 10px 0px #E9444B40;font-size: 14px;font-weight: 500;line-height: 16.8px;letter-spacing: 0.03em;text-align: center;width: 50%; margin: 2rem auto;color: #fff; text-decoration:none;padding:0.375rem 0.75rem; vertical-align:middle;">
+                                                My IPTV Subscriptions
+                                            </a>
                                         </td>
                                     </tr>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">

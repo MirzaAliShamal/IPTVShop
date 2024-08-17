@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Customer\RedeemGiftCardExpired;
+use App\Mail\Customer\RedeemGiftCardApproved;
 
 class RedeemGiftCardController extends Controller
 {
@@ -91,13 +94,20 @@ class RedeemGiftCardController extends Controller
     {
         DB::beginTransaction();
         try {
+            $user = $userGiftCard->user;
+
             $data = $request->except('_token');
             if (isset($data['status']) && $data['status'] == 'redeemed' && isset($data['amount'])) {
-                $user = $userGiftCard->user;
                 $user->wallet_balance = $user->wallet_balance + $data['amount'];
                 $user->save();
             }
             $userGiftCard->update($data);
+
+            if ($data['status'] == 'redeemed') {
+                Mail::to($user->email)->send(new RedeemGiftCardApproved($user, $userGiftCard));
+            } else if ($data['status'] == 'expired') {
+                Mail::to($user->email)->send(new RedeemGiftCardExpired($user, $userGiftCard));
+            }
 
             DB::commit();
             return redirect()->route('admin.redeem.gift.card.index')->with('Record updated successfully!');

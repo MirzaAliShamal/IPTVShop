@@ -7,6 +7,10 @@ use App\Models\ProductOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Customer\ProductShippedEmail;
+use App\Mail\Customer\ProductCanceledEmail;
+use App\Mail\Customer\ProductDeliveredEmail;
 
 class ProductOrderController extends Controller
 {
@@ -102,6 +106,15 @@ class ProductOrderController extends Controller
         try {
             $data = $request->except('_token');
             $productOrder->update($data);
+
+            $user = $productOrder->user;
+            if ($data['status'] == 'shipped') {
+                Mail::to($user->email)->send(new ProductShippedEmail($user, $productOrder));
+            } else if ($data['status'] == 'delivered') {
+                Mail::to($user->email)->send(new ProductDeliveredEmail($user, $productOrder));
+            } else if ($data['status'] == 'canceled') {
+                Mail::to($user->email)->send(new ProductCanceledEmail($user, $productOrder));
+            }
 
             DB::commit();
             return redirect()->route('admin.products.order.index')->with('Record updated successfully!');

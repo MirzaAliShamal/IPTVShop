@@ -9,8 +9,12 @@ use App\Models\Transaction;
 use App\Models\UserGiftCard;
 use Illuminate\Http\Request;
 use App\Models\PayPalAccount;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Customer\FundsPurchasedEmail;
+use App\Mail\Customer\RedeemGiftCardSubmitted;
 
 class FundsController extends Controller
 {
@@ -40,31 +44,52 @@ class FundsController extends Controller
     {
         $fund = FundsCard::find($id);
         if ($request->method == "paypal") {
-            $paypalAcc = PayPalAccount::find($request->pay_pal_account_id);
+            DB::beginTransaction();
+            try {
+                $paypalAcc = PayPalAccount::find($request->pay_pal_account_id);
+                $user = Auth::user();
 
-            $transaction = Transaction::create([
-                'user_id' => Auth::user()->id,
-                'type' => 'paypal',
-                'amount' => $fund->amount,
-                'sender_paypal_email' => $request->paypal_email,
-                'company_paypal_email' => $paypalAcc->email,
-            ]);
+                $transaction = Transaction::create([
+                    'user_id' => $user->id,
+                    'type' => 'paypal',
+                    'amount' => $fund->amount,
+                    'sender_paypal_email' => $request->paypal_email,
+                    'company_paypal_email' => $paypalAcc->email,
+                ]);
 
-            return redirect()->route('funds.thankyou');
+                Mail::to($user->email)->send(new FundsPurchasedEmail($user, $transaction));
+
+                DB::commit();
+                return redirect()->route('funds.thankyou');
+            } catch (\Exception $e) {
+                DB::rollback();
+                return redirect()->back()->with('error', 'Something went wrong, please try again');
+            }
         } else if ($request->method == "visa") {
-            $bankAcc = BankAccount::find($request->bank_account_id);
+            DB::beginTransaction();
+            try {
+                $bankAcc = BankAccount::find($request->bank_account_id);
+                $user = Auth::user();
 
-            $transaction = Transaction::create([
-                'user_id' => Auth::user()->id,
-                'type' => 'visa',
-                'amount' => $fund->amount,
-                'sender_bank_iban' => $request->visa_iban,
-                'company_bank_name' => $bankAcc->name,
-                'company_bank_iban' => $bankAcc->iban,
-                'company_bank_bic' => $bankAcc->bic,
-            ]);
+                $transaction = Transaction::create([
+                    'user_id' => $user->id,
+                    'type' => 'visa',
+                    'amount' => $fund->amount,
+                    'sender_bank_iban' => $request->visa_iban,
+                    'company_bank_name' => $bankAcc->name,
+                    'company_bank_iban' => $bankAcc->iban,
+                    'company_bank_bic' => $bankAcc->bic,
+                ]);
 
-            return redirect()->route('funds.thankyou');
+                Mail::to($user->email)->send(new FundsPurchasedEmail($user, $transaction));
+
+                DB::commit();
+
+                return redirect()->route('funds.thankyou');
+            } catch (\Exception $e) {
+                DB::rollback();
+                return redirect()->back()->with('error', 'Something went wrong, please try again');
+            }
         } else {
             return redirect()->back()->with('error', 'Something went wrong, please try again');
         }
@@ -87,12 +112,19 @@ class FundsController extends Controller
 
     public function storeRedeemGiftCard(Request $request)
     {
-        $user  = Auth::user();
-        $redeem = UserGiftCard::create([
-            'user_id' => $user->id,
-            'user_link' => $request->user_link,
-            'code' => $request->code,
-        ]);
-        return redirect()->route('funds.thankyou');
+        try {
+            $user  = Auth::user();
+            $redeem = UserGiftCard::create([
+                'user_id' => $user->id,
+                'user_link' => $request->user_link,
+                'code' => $request->code,
+            ]);
+
+            Mail::to($user->email)->send(new RedeemGiftCardSubmitted($user, $redeem));
+
+            return redirect()->route('funds.thankyou');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong, please try again');
+        }
     }
 }

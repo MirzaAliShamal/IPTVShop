@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use App\Rules\Auth\OTPVerify;
+use App\Mail\Customer\WelcomeEmail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -30,6 +31,9 @@ class EmailVerificationController extends Controller
         $user = Auth::user();
         $user->email_verified_at = now();
         $user->save();
+
+        $email = new WelcomeEmail();
+        Mail::to($user->email)->send($email);
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }

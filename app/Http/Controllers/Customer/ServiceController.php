@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Customer\ServicesPurchasedEmail;
 
 class ServiceController extends Controller
 {
@@ -41,7 +43,7 @@ class ServiceController extends Controller
 
         DB::beginTransaction();
         try {
-            $subcription = Subscription::create([
+            $subscription = Subscription::create([
                 'user_id' => Auth::user()->id,
                 'type' => 'other',
                 'title' => $service->duration.' Month '.$service->title,
@@ -49,11 +51,13 @@ class ServiceController extends Controller
                 'order_placed_at' => Carbon::now()
             ]);
 
-            if ($subcription) {
+            if ($subscription) {
                 $user = Auth::user();
                 $user->wallet_balance = $user->wallet_balance - $service->price;
                 $user->save();
             }
+
+            Mail::to($user->email)->send(new ServicesPurchasedEmail($user, $subscription));
 
             DB::commit();
         } catch (\Exception $e) {

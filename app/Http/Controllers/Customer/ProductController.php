@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Customer\ProductPurchasedEmail;
 
 class ProductController extends Controller
 {
@@ -37,6 +39,10 @@ class ProductController extends Controller
             return redirect()->route('funds.insufficient');
         }
 
+        if (is_null(Auth::user()->address)) {
+            return redirect()->route('shipping.address');
+        }
+
         DB::beginTransaction();
         try {
             $order = ProductOrder::create([
@@ -49,6 +55,8 @@ class ProductController extends Controller
                 $user->wallet_balance = $user->wallet_balance - $product->price;
                 $user->save();
             }
+
+            Mail::to($user->email)->send(new ProductPurchasedEmail($user, $order));
 
             DB::commit();
         } catch (\Exception $e) {

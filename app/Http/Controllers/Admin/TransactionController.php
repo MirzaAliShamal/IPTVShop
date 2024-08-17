@@ -6,6 +6,9 @@ use DataTables;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Customer\FundsApprovedEmail;
+use App\Mail\Customer\FundsDeclinedEmail;
 
 class TransactionController extends Controller
 {
@@ -85,16 +88,18 @@ class TransactionController extends Controller
                 })
                 ->addColumn('action', function($row){
                     $html = '';
-                    if ($row->status !== 'approved') {
+                    if ($row->status == 'pending') {
                         $html .= '
                             <a href="'.route('admin.transaction.edit', $row->id).'" class="me-2 update-record" data-bs-toggle="tooltip" data-bs-placement="top" title="Update Status">
                                 <i class="bi bi-pencil-square fs-4 cursor-pointer text-primary"></i>
                             </a>
-                            <a href="'.route('admin.transaction.delete', $row->id).'" class="me-2 delete-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Record">
-                                <i class="bi bi-trash fs-4 cursor-pointer text-danger"></i>
-                            </a>
                         ';
                     }
+                    $html .= '
+                        <a href="'.route('admin.transaction.delete', $row->id).'" class="me-2 delete-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Record">
+                            <i class="bi bi-trash fs-4 cursor-pointer text-danger"></i>
+                        </a>
+                    ';
                     return $html;
                 })
                 ->rawColumns(['company_bank', 'status', 'action'])
@@ -113,6 +118,12 @@ class TransactionController extends Controller
             $user = $transaction->user;
             $user->wallet_balance = $user->wallet_balance + $transaction->amount;
             $user->save();
+
+            Mail::to($user->email)->send(new FundsApprovedEmail($user, $transaction));
+        }
+        if ($request->status === 'declined') {
+            $user = $transaction->user;
+            Mail::to($user->email)->send(new FundsDeclinedEmail($user, $transaction));
         }
         $transaction->update($request->except('_token'));
 

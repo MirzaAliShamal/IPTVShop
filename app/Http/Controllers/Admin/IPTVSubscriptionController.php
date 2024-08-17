@@ -8,6 +8,9 @@ use App\Models\Subscription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Customer\IptvSubscriptionStartedEmail;
+use App\Mail\Customer\IptvSubscriptionSuspendedEmail;
 
 class IPTVSubscriptionController extends Controller
 {
@@ -105,6 +108,11 @@ class IPTVSubscriptionController extends Controller
             $data['expired_at'] = Carbon::now()->addMonths($subscription->duration);
             $subscription->update($data);
 
+            if ($data['status'] == 'started') {
+                $user = $subscription->user;
+                Mail::to($user->email)->send(new IptvSubscriptionStartedEmail($user, $subscription));
+            }
+
             DB::commit();
             return redirect()->route('admin.iptv.subscription.index')->with('Record updated successfully!');
         } catch (\Exception $e) {
@@ -121,9 +129,19 @@ class IPTVSubscriptionController extends Controller
 
     public function suspend(Subscription $subscription)
     {
-        $subscription->update([
-            'status' => 'suspended',
-        ]);
-        return redirect()->route('admin.iptv.subscription.index')->with('Record deleted successfully!');
+        DB::beginTransaction();
+        try {
+            $subscription->update([
+                'status' => 'suspended',
+            ]);
+            $user = $subscription->user;
+            Mail::to($user->email)->send(new IptvSubscriptionSuspendedEmail($user, $subscription));
+
+            DB::commit();
+            return redirect()->route('admin.iptv.subscription.index')->with('Record deleted successfully!');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 }

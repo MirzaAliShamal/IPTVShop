@@ -20,27 +20,19 @@
                                     <tr><td><a href="{{ env('APP_URL') }}"><img src="{{ asset('app/images/iptv-shop-icon-32x32.png') }}" alt="" style="margin-left: auto; margin-right: auto; display:block; margin-bottom: 10px; height: 40px;"></a></td></tr>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                         <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; color: #272727; font-size: 24px; font-weight: 700; text-align: center; vertical-align: top; margin: 0; padding: 0 0 10px;" valign="top">
-                                            Verify your Email address
+                                            Funds Purchase Request Received
                                         </td>
                                     </tr>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                         <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; color: #272727; font-size: 14px; vertical-align: top; margin: 0; padding: 10px 10px;" valign="top">
-                                            Use this code to verify your {{ env('APP_NAME') }} account
-                                        </td>
-                                    </tr>
-                                    <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-                                        <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 10px 10px;" valign="top">
-                                            Code will expire in 15 minutes.
-                                        </td>
-                                    </tr>
-                                    <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-                                        <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 36px; font-weight:bold; vertical-align: top; margin: 0; padding: 10px 10px; text-align:center;" valign="top">
-                                            {{ $otp }}
+                                            Hi {{ $user->name }}, Thank you for topping up your account! Our system is currently verifying your payment.
                                         </td>
                                     </tr>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                         <td class="content-block" itemprop="handler" itemscope itemtype="http://schema.org/HttpActionHandler" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 10px 10px;" valign="top">
-                                            <a href="{{ route('dashboard.index') }}" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box;background: #55BD8B;border-color: #55BD8B;border-color: #55BD8B;display:flex;justify-content:center;align-items:center;height: 38.31px;border-radius: 12px;box-shadow: 0px 4px 10px 0px #E9444B40;font-size: 14px;font-weight: 500;line-height: 16.8px;letter-spacing: 0.03em;text-align: center;width: 50%; margin: 2rem auto;color: #fff; text-decoration:none;padding:0.375rem 0.75rem; vertical-align:middle;">Confirm email address</a>
+                                            <a href="{{ route('dashboard.index') }}" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box;background: #55BD8B;border-color: #55BD8B;border-color: #55BD8B;display:flex;justify-content:center;align-items:center;height: 38.31px;border-radius: 12px;box-shadow: 0px 4px 10px 0px #E9444B40;font-size: 14px;font-weight: 500;line-height: 16.8px;letter-spacing: 0.03em;text-align: center;width: 50%; margin: 2rem auto;color: #fff; text-decoration:none;padding:0.375rem 0.75rem; vertical-align:middle;">
+                                                Dashboard
+                                            </a>
                                         </td>
                                     </tr>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
