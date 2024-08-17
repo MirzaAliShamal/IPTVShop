@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\GiftCardController;
@@ -31,9 +32,21 @@ use App\Http\Controllers\Admin\ServiceSubscriptionController;
 Route::middleware('auth', 'admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
+    Route::prefix('profile')->name('profile.')->controller(DashboardController::class)->group(function () {
+        Route::get('/', 'profile')->name('index');
+        Route::post('/basic', 'basic')->name('basic');
+        Route::post('/password', 'password')->name('password');
+    });
+
     Route::prefix('settings')->name('setting.')->controller(SettingsController::class)->group(function() {
         Route::get('/', 'index')->name('index');
         Route::post('/save', 'save')->name('save');
+    });
+
+    Route::prefix('users')->name('user.')->controller(UserController::class)->group(function() {
+        Route::get('/', 'index')->name('index');
+        Route::get('/fetch', 'fetch')->name('fetch');
+        Route::get('/delete/{user}', 'delete')->name('delete');
     });
 
     Route::prefix('iptv-services')->name('iptv.service.')->controller(IPTVServiceController::class)->group(function() {

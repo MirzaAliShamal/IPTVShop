@@ -6,6 +6,7 @@ use App\Models\Subscription;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class DashboardController extends Controller
 {
@@ -16,6 +17,36 @@ class DashboardController extends Controller
             ->orderBy('id', 'DESC')->get();
 
         return view('app.dashboard', get_defined_vars());
+    }
+
+    public function editProfile()
+    {
+        return view('app.edit_profile', get_defined_vars());
+    }
+
+    public function storeEditProfile(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'email|required',
+        ]);
+        Auth::user()->update($request->except('_token'));
+        return redirect()->back()->with('success', 'Profile Updated');
+    }
+
+    public function changePassword()
+    {
+        return view('app.change_password', get_defined_vars());
+    }
+
+    public function storeChangePassword(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|confirmed',
+        ]);
+        $data['password'] = Hash::make($request->password);
+        Auth::user()->update($data);
+        return redirect()->back()->with('success', 'Profile Updated');
     }
 
     public function shippingAddress()

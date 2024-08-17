@@ -10,20 +10,19 @@
             [25, 50, 150, "All"]
         ],
         ajax: {
-            "url" : baseUrl+"/recruitment/shortlisting/fetch",
+            "url" : baseUrl+"/users/fetch",
             // "data" : function(d) {
-            //     d.joined_from = $('[name="joined_from"]').val();
-            //     d.joined_to = $('[name="joined_to"]').val();
+            //     d.type = 'visa'
             // }
         },
         columns: [
-            {data: 'id', name: 'id'},
-            {data: 'user', name: 'user.name'},
-            {data: 'email', name: 'user.email'},
-            {data: 'application_status', name: 'application_status'},
-            {data: 'reviewer_comments', name: 'reviewer_comments'},
+            {data: 'id', name: 'id', class: 'align-top'},
+            {data: 'name', name: 'name', class: 'align-top'},
+            {data: 'email', name: 'email', class: 'align-top'},
+            {data: 'wallet_balance', name: 'wallet_balance', class: 'align-top'},
+            {data: 'address', name: 'address', class: 'align-top'},
             {
-                class: 'td-actions text-end',
+                class: 'td-actions align-top text-end',
                 data: 'action',
                 name: 'action',
                 orderable: true,
@@ -46,18 +45,5 @@
 
     $("#search").keyup(function (e) {
         table.search($(this).val()).draw() ;
-    });
-
-    $(document).on("click", ".update-record", function(e) {
-        e.preventDefault();
-        $.ajax({
-            type: "GET",
-            url: $(this).attr('href'),
-            success: function (response) {
-                $("#edit_details_modal .modal-body").html(response);
-                $("#edit_details_modal [data-control='select2']").select2();
-                $("#edit_details_modal").modal('show');
-            },
-        });
     });
 })(jQuery);

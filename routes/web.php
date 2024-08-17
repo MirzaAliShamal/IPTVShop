@@ -39,6 +39,10 @@ Route::get('/verification', function() {
 
 Route::middleware('auth', 'customer', 'otp.verify')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/edit-profile', [DashboardController::class, 'editProfile'])->name('edit.profile');
+    Route::post('/edit-profile', [DashboardController::class, 'storeEditProfile'])->name('store.edit.profile');
+    Route::get('/change-password', [DashboardController::class, 'changePassword'])->name('change.password');
+    Route::post('/change-password', [DashboardController::class, 'storeChangePassword'])->name('store.change.password');
     Route::get('/shipping-address', [DashboardController::class, 'shippingAddress'])->name('shipping.address');
     Route::post('/shipping-address', [DashboardController::class, 'storeShippingAddress'])->name('store.shipping.address');
     Route::get('/help', [DashboardController::class, 'help'])->name('help');
