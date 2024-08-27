@@ -12,7 +12,7 @@
             <span class="bullet bg-gray-200 w-5px h-2px"></span>
         </li>
         <li class="breadcrumb-item text-muted">
-            <a href="{{ route('admin.funds.card.giftcard') }}" class="text-muted text-hover-primary">Funds Card</a>
+            <a href="{{ route('admin.funds.card.paypal') }}" class="text-muted text-hover-primary">Funds Card</a>
         </li>
         <li class="breadcrumb-item">
             <span class="bullet bg-gray-200 w-5px h-2px"></span>
@@ -55,7 +55,7 @@
                         <button type="submit" class="btn btn-primary me-2">
                             Save Changes
                         </button>
-                        <a href="{{ route('admin.funds.card.giftcard') }}" class="btn btn-secondary">
+                        <a href="{{ route('admin.funds.card.paypal') }}" class="btn btn-secondary">
                             Go Back
                         </a>
                     </div>

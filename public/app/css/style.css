@@ -166,6 +166,15 @@ textarea.form-control {
     border-color: #55BD8B;
 }
 
+.btn-social {
+    background: transparent;
+    color: #272727;
+}
+
+.btn-social:hover {
+    border-color: #55BD8B;
+}
+
 .btn-close:active,
 .btn-close:focus,
 .btn-close:focus-visible,

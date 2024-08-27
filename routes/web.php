@@ -7,6 +7,7 @@ use App\Http\Controllers\Customer\FundsController;
 use App\Http\Controllers\Customer\ProductController;
 use App\Http\Controllers\Customer\ServiceController;
 use App\Http\Controllers\Customer\DashboardController;
+use App\Http\Controllers\Customer\SocialLoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,9 @@ use App\Http\Controllers\Customer\DashboardController;
 */
 
 require __DIR__.'/auth.php';
+
+Route::get('auth/{provider}/redirect', [SocialLoginController::class , 'redirect'])->name('auth.socialite.redirect');
+Route::get('auth/{provider}/callback', [SocialLoginController::class , 'callback'])->name('auth.socialite.callback');
 
 Route::get('/', function () {
     if (Auth::check()) {
