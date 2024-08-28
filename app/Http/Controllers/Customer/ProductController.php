@@ -20,6 +20,13 @@ class ProductController extends Controller
         return view('app.products.index', get_defined_vars());
     }
 
+    public function view($id)
+    {
+        $product = Product::find($id);
+
+        return view('app.products.view', get_defined_vars());
+    }
+
     public function myProduct()
     {
         $orders = ProductOrder::where('user_id', Auth::user()->id)
@@ -70,5 +77,20 @@ class ProductController extends Controller
     public function thankyou()
     {
         return view('app.products.thankyou', get_defined_vars());
+    }
+
+    public function review(Request $request, $id)
+    {
+        $product = Product::find($id);
+        if (is_null($product)) {
+            return redirect()->back()->with('error', 'Something went wrong');
+        }
+        $product->reviews()->create([
+            'user_id' => Auth::user()->id,
+            'rating' => $request->rating,
+            'comment' => $request->comment,
+        ]);
+
+        return redirect()->back()->with('success', 'Review submitted');
     }
 }

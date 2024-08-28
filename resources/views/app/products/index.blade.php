@@ -24,8 +24,8 @@
                                         <h3 class="text-center">{{ $p->title }}</h3>
                                     </div>
                                     <div class="section-body d-flex flex-column justify-content-center align-items-center gap-3">
-                                        <span class="section-price">{{ $p->price.'£' }}</span>
-                                        <a href="{{ route('products.purchase', $p->id) }}" class="btn btn-secondary">Buy Now</a>
+                                        <span class="section-price">{{ $p->price.'€' }}</span>
+                                        <a href="{{ route('products.view', $p->id) }}" class="btn btn-secondary">Buy Now</a>
                                     </div>
                                 </div>
                             </div>

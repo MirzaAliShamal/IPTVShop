@@ -32,7 +32,7 @@ class GiftCardController extends Controller
                 return $html;
             })
             ->editColumn('amount', function($row) {
-                return $row->amount.'£';
+                return $row->amount.'€';
             })
             ->addColumn('action', function($row){
                 $html = '';

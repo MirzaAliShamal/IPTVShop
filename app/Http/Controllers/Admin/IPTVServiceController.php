@@ -41,10 +41,14 @@ class IPTVServiceController extends Controller
                 }
             })
             ->editColumn('duration', function($row) {
-                return $row->duration.' Month';
+                if ($row->duration > 1) {
+                    return $row->duration.' Months';
+                } else {
+                    return $row->duration.' Month';
+                }
             })
             ->editColumn('price', function($row) {
-                return $row->price.'£';
+                return $row->price.'€';
             })
             ->editColumn('status', function($row) {
                 $html = '';

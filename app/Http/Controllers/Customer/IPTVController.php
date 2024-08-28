@@ -3,62 +3,22 @@
 namespace App\Http\Controllers\Customer;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\IptvService;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
+use App\Rules\Auth\OTPVerify;
 use App\Models\TestIptvAccount;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Customer\TestIptvStartedEmail;
+use App\Mail\Customer\EmailVerificationEmail;
 use App\Mail\Customer\IptvSubscriptionPurchasedEmail;
 
 class IPTVController extends Controller
 {
-    public function test()
-    {
-        $testAccounts = Auth::user()->userTestIptvAccounts;
-
-        return view('app.iptv.test', get_defined_vars());
-    }
-
-    public function getTest()
-    {
-        $user = Auth::user();
-        $testAccounts = $user->userTestIptvAccounts;
-        if (count($testAccounts) > 0) {
-            return redirect()->route('iptv.test');
-        }
-
-        DB::beginTransaction();
-        try {
-            $account = TestIptvAccount::where('user_id', null)->inRandomOrder()->first();
-            if (is_null($account)) {
-                return redirect()->route('iptv.test');
-            }
-
-            $account->user_id = $user->id;
-            $account->save();
-
-            $testIptvAccount = $user->userTestIptvAccounts()->create([
-                'test_iptv_account_id' => $account->id,
-                'started_at' => Carbon::now(),
-                'expired_at' => Carbon::now()->addDays(1),
-                'status' => 'started',
-            ]);
-
-            Mail::to($user->email)->send(new TestIptvStartedEmail($user, $testIptvAccount));
-
-            DB::commit();
-        } catch (\Exception $e) {
-            DB::rollback();
-            return redirect()->back()->with('error', 'Something went wrong');
-        }
-
-        return redirect()->route('iptv.test');
-    }
-
     public function mySubscription()
     {
         $subcriptions = Subscription::where('type', 'iptv')
@@ -89,10 +49,14 @@ class IPTVController extends Controller
 
         DB::beginTransaction();
         try {
+            $title = $iptvService->duration.' Month Iptv Subscription';
+            if ($iptvService->duration > 1) {
+                $title = $iptvService->duration.' Months Iptv Subscription';
+            }
             $subscription = Subscription::create([
                 'user_id' => Auth::user()->id,
                 'type' => 'iptv',
-                'title' => $iptvService->duration.' Month Iptv Subscription',
+                'title' => $title,
                 'duration' => $iptvService->duration,
                 'order_placed_at' => Carbon::now()
             ]);

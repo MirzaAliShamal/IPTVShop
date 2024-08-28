@@ -13,17 +13,17 @@
                         <div class="col-12 text-center mb-3">
                             <h2 class="section-title">Select your payment method</h2>
                         </div>
-                        <div class="col-lg-3 col-md-3 col-sm-12 col-12">
+                        <div class="col-lg-3 col-md-3 col-sm-4 col-4 mb-3">
                             <div class="payment-methods active giftcard-method" id="pills-giftcard-tab" data-bs-toggle="pill" data-bs-target="#pills-giftcard" type="button" role="tab" aria-controls="pills-giftcard" aria-selected="true">
                                 <img src="{{ asset('app/images/giftcard.png') }}" class="img-fluid" alt="">
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-3 col-sm-12 col-12">
+                        <div class="col-lg-3 col-md-3 col-sm-4 col-4 mb-3">
                             <div class="payment-methods paypal-method" id="pills-paypal-tab" data-bs-toggle="pill" data-bs-target="#pills-paypal" type="button" role="tab" aria-controls="pills-paypal" aria-selected="false">
                                 <img src="{{ asset('app/images/paypal.png') }}" class="img-fluid" alt="">
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-3 col-sm-12 col-12">
+                        <div class="col-lg-3 col-md-3 col-sm-4 col-4 mb-3">
                             <div class="payment-methods visa-method" id="pills-visa-tab" data-bs-toggle="pill" data-bs-target="#pills-visa" type="button" role="tab" aria-controls="pills-visa" aria-selected="false">
                                 <img src="{{ asset('app/images/visa.png') }}" class="img-fluid" alt="">
                             </div>
@@ -40,7 +40,7 @@
                                     </div>
                                     <div class="row justify-content-center">
                                         @foreach ($giftCards as $giftcard)
-                                            <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                                            <div class="col-lg-4 col-md-4 col-sm-6 col-6">
                                                 <a href="{{ $giftcard->link }}" target="_blank">
                                                     <div class="funds-card gift-card">
                                                         <div class="funds-logo">
@@ -65,7 +65,7 @@
                                     </div>
                                     <div class="row justify-content-center">
                                         @foreach ($paypalCards as $paypalCard)
-                                            <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                                            <div class="col-lg-4 col-md-4 col-sm-6 col-6">
                                                 <a href="{{ route('funds.paypal', $paypalCard->id) }}" class="d-block">
                                                     <div class="funds-card gift-card">
                                                         <div class="funds-logo">
@@ -90,7 +90,7 @@
                                     </div>
                                     <div class="row justify-content-center">
                                         @foreach ($visaCards as $visaCard)
-                                            <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                                            <div class="col-lg-4 col-md-4 col-sm-6 col-6">
                                                 <a href="{{ route('funds.visa', $visaCard->id) }}" class="d-block">
                                                     <div class="funds-card gift-card">
                                                         <div class="funds-logo">

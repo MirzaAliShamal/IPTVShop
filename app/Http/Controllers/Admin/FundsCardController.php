@@ -26,7 +26,7 @@ class FundsCardController extends Controller
 
         return Datatables::of($list)
             ->editColumn('amount', function($row) {
-                return $row->amount.'£';
+                return $row->amount.'€';
             })
             ->addColumn('action', function($row){
                 $html = '';

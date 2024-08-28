@@ -48,13 +48,7 @@
                     <div class="col-lg-6 col-md-6 col-12">
                         <div class="form-group mb-5">
                             <label class="required form-label">Duration</label>
-                            <select name="duration" class="form-select" data-control="select2" data-placeholder="Choose any Option">
-                                <option></option>
-                                <option value="1" {{ old('duration', $service->duration) == '1' ? 'selected' : '' }}>1 Month</option>
-                                <option value="3" {{ old('duration', $service->duration) == '3' ? 'selected' : '' }}>3 Month</option>
-                                <option value="6" {{ old('duration', $service->duration) == '6' ? 'selected' : '' }}>6 Month</option>
-                                <option value="12" {{ old('duration', $service->duration) == '12' ? 'selected' : '' }}>12 Month</option>
-                            </select>
+                            <input type="text" name="duration" class="form-control" placeholder="e.g. 1" value="{{ old('duration', $service->duration) }}"/>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-12">

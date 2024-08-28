@@ -18,14 +18,18 @@
                             <div class="col-lg-3 col-md-6 col-sm-12 col-12">
                                 <div class="section-card">
                                     <div class="section-top d-flex flex-column justify-content-center align-items-center gap-3">
-                                        <h3 class="text-center">{{ $s->duration.' Month' }}</h3>
+                                        @if ($s->duration > 1)
+                                                <h3 class="text-center">{{ $s->duration.' Months' }}</h3>
+                                            @else
+                                                <h3 class="text-center">{{ $s->duration.' Month' }}</h3>
+                                            @endif
                                         <div class="section-logo">
                                             <img src="{{ Storage::url($s->logo) }}" alt="Logo">
                                         </div>
                                     </div>
                                     <div class="section-body d-flex flex-column justify-content-center align-items-center gap-3">
-                                        <span class="section-price">{{ $s->price.'£' }}</span>
-                                        <a href="{{ route('services.purchase', $s->id) }}" class="btn btn-secondary">Buy Now</a>
+                                        <span class="section-price">{{ $s->price.'€' }}</span>
+                                        <a href="{{ route('services.view', $s->id) }}" class="btn btn-secondary">Buy Now</a>
                                     </div>
                                 </div>
                             </div>

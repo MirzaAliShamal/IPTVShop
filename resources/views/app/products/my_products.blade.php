@@ -25,7 +25,7 @@
                                 @foreach ($orders as $order)
                                     <tr>
                                         <td class="align-top">{{ $order->product->title }} </td>
-                                        <td>{{ $order->product->price.'£' }}</td>
+                                        <td>{{ $order->product->price.'€' }}</td>
                                         <td class="align-top">
                                             @if ($order->status == "pending")
                                                 <span class="badge text-bg-primary">Pending</span>

@@ -34,7 +34,7 @@ class ProductController extends Controller
                 return $html;
             })
             ->editColumn('price', function($row) {
-                return $row->price.'£';
+                return $row->price.'€';
             })
             ->editColumn('status', function($row) {
                 $html = '';

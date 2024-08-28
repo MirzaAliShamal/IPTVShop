@@ -76,3 +76,9 @@
         font-size: 30px;
     }
 }
+
+@media(max-width:576px) {
+    .purchase-btn {
+        width: 100%;
+    }
+}

@@ -50,7 +50,7 @@
                             <path d="M33.7397 24.4955C34.6574 24.4955 35.4014 23.7515 35.4014 22.8339C35.4014 21.9162 34.6574 21.1722 33.7397 21.1722C32.8221 21.1722 32.0781 21.9162 32.0781 22.8339C32.0781 23.7515 32.8221 24.4955 33.7397 24.4955Z" fill="#55BD8B"/>
                         </svg>
                     </span>
-                    <span class="stats-count">{{ Auth::user()->wallet_balance }}£</span>
+                    <span class="stats-count">{{ Auth::user()->wallet_balance }}€</span>
                 </div>
             </div>
         </div>

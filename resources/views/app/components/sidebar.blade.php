@@ -32,7 +32,7 @@
                         </a>
                     </div>
                     <div class="menu-item">
-                        <a href="{{ route('iptv.test') }}" class="menu-link @routeis('iptv.test') active @endrouteis">
+                        <a href="{{ route('test.index') }}" class="menu-link @routeis('test.*') active @endrouteis">
                             <span class="menu-icon">
                                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M23.6 8H4.4C3.07452 8 2 9.07452 2 10.4V23.6C2 24.9255 3.07452 26 4.4 26H23.6C24.9255 26 26 24.9255 26 23.6V10.4C26 9.07452 24.9255 8 23.6 8Z" stroke="#4C4C4C" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>

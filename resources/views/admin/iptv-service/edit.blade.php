@@ -61,9 +61,9 @@
                             <select name="duration" class="form-select" data-control="select2" data-placeholder="Choose any Option">
                                 <option></option>
                                 <option value="1" {{ old('duration', $iptvService->duration) == '1' ? 'selected' : '' }}>1 Month</option>
-                                <option value="3" {{ old('duration', $iptvService->duration) == '3' ? 'selected' : '' }}>3 Month</option>
-                                <option value="6" {{ old('duration', $iptvService->duration) == '6' ? 'selected' : '' }}>6 Month</option>
-                                <option value="12" {{ old('duration', $iptvService->duration) == '12' ? 'selected' : '' }}>12 Month</option>
+                                <option value="3" {{ old('duration', $iptvService->duration) == '3' ? 'selected' : '' }}>3 Months</option>
+                                <option value="6" {{ old('duration', $iptvService->duration) == '6' ? 'selected' : '' }}>6 Months</option>
+                                <option value="12" {{ old('duration', $iptvService->duration) == '12' ? 'selected' : '' }}>12 Months</option>
                             </select>
                         </div>
                     </div>

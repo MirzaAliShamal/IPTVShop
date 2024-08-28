@@ -61,9 +61,9 @@
                     @else
                         <div class="row justify-content-center">
                             <div class="col-lg-6 col-12 text-center">
-                                <p>Try our IPTV service with a 1-day test. Click "Get a Test" to explore all channels instantly, no setup required. If you're still unsure about purchasing, visit our Telegram group to see positive reviews from our satisfied customers</p>
+                                <p>Try our IPTV service with a 24-hour test. Click "Get a Test" to explore all channels instantly, no setup required. If you're still unsure about purchasing, visit our Telegram group to see positive reviews from our satisfied customers</p>
                                 <div class="d-flex flex-row justify-content-center gap-3 mt-4">
-                                    <a href="{{ route('iptv.get.test') }}" class="btn btn-primary">Get a test</a>
+                                    <a href="{{ route('test.get') }}" class="btn btn-primary">Get a test</a>
                                     <a href="" class="btn btn-secondary">
                                         Join us
                                         <span class="ms-2">

@@ -19,13 +19,17 @@
                                 <div class="col-lg-3 col-md-6 col-sm-12 col-12">
                                     <div class="section-card">
                                         <div class="section-top d-flex flex-column justify-content-center align-items-center gap-3">
-                                            <h3 class="text-center">{{ $ss->duration.' Month' }}</h3>
+                                            @if ($ss->duration > 1)
+                                                <h3 class="text-center">{{ $ss->duration.' Months' }}</h3>
+                                            @else
+                                                <h3 class="text-center">{{ $ss->duration.' Month' }}</h3>
+                                            @endif
                                             <div class="section-logo">
                                                 <img src="{{ Storage::url($ss->logo) }}" alt="Logo">
                                             </div>
                                         </div>
                                         <div class="section-body d-flex flex-column justify-content-center align-items-center gap-3">
-                                            <span class="section-price">{{ $ss->price.'£' }}</span>
+                                            <span class="section-price">{{ $ss->price.'€' }}</span>
                                             <a href="{{ route('iptv.purchase', $ss->id) }}" class="btn btn-secondary">Buy Now</a>
                                         </div>
                                     </div>
@@ -48,7 +52,7 @@
                                             </div>
                                         </div>
                                         <div class="section-body d-flex flex-column justify-content-center align-items-center gap-3">
-                                            <span class="section-price">{{ $ms->price.'£' }}</span>
+                                            <span class="section-price">{{ $ms->price.'€' }}</span>
                                             <a href="" class="btn btn-secondary">Buy Now</a>
                                         </div>
                                     </div>

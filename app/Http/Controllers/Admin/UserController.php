@@ -20,7 +20,7 @@ class UserController extends Controller
 
         return Datatables::of($list)
             ->editColumn('wallet_balance', function($row) {
-                return $row->wallet_balance.'£';
+                return $row->wallet_balance.'€';
             })
             ->editColumn('address', function($row) {
                 $html = '';

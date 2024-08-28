@@ -30,7 +30,7 @@ class TransactionController extends Controller
         if ($request->type == "paypal") {
             return Datatables::of($list)
                 ->editColumn('amount', function($row) {
-                    return $row->amount.'£';
+                    return $row->amount.'€';
                 })
                 ->editColumn('status', function($row) {
                     $html = '';
@@ -73,7 +73,7 @@ class TransactionController extends Controller
                     return $html;
                 })
                 ->editColumn('amount', function($row) {
-                    return $row->amount.'£';
+                    return $row->amount.'€';
                 })
                 ->editColumn('status', function($row) {
                     $html = '';

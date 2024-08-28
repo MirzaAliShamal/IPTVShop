@@ -21,6 +21,13 @@ class ServiceController extends Controller
         return view('app.services.index', get_defined_vars());
     }
 
+    public function view($id)
+    {
+        $service = Service::find($id);
+
+        return view('app.services.view', get_defined_vars());
+    }
+
     public function myService()
     {
         $subcriptions = Subscription::where('type', 'other')
@@ -43,10 +50,14 @@ class ServiceController extends Controller
 
         DB::beginTransaction();
         try {
+            $title = $service->duration.' Month '.$service->title;
+            if ($service->duration > 1) {
+                $title = $service->duration.' Months '.$service->title;
+            }
             $subscription = Subscription::create([
                 'user_id' => Auth::user()->id,
                 'type' => 'other',
-                'title' => $service->duration.' Month '.$service->title,
+                'title' => $title,
                 'duration' => $service->duration,
                 'order_placed_at' => Carbon::now()
             ]);
@@ -71,5 +82,20 @@ class ServiceController extends Controller
     public function thankyou()
     {
         return view('app.services.thankyou', get_defined_vars());
+    }
+
+    public function review(Request $request, $id)
+    {
+        $service = Service::find($id);
+        if (is_null($service)) {
+            return redirect()->back()->with('error', 'Something went wrong');
+        }
+        $service->reviews()->create([
+            'user_id' => Auth::user()->id,
+            'rating' => $request->rating,
+            'comment' => $request->comment,
+        ]);
+
+        return redirect()->back()->with('success', 'Review submitted');
     }
 }

@@ -15,7 +15,8 @@
     var validator = $(".edit-form").validate({
         rules: {
             duration: {
-                required: true
+                required: true,
+                number: true
             },
             title: {
                 required: true
@@ -31,25 +32,18 @@
             },
             status: {
                 required: true
-            },
-            logo: {
-                required: false,
-                extension: "pdf|doc|docx",
-                filesize: 10000000 // 10MB
             }
         },
         messages: {
-            duration: "Please select a duration",
+            duration: {
+                required: "Please select a duration",
+                number: "Please enter a valid duration"
+            },
             title: "Please enter title",
             price: "Please enter price",
             short_desc: "Please enter short description",
             description: "Please enter description",
-            status: "Please select a status",
-            logo: {
-                required: "Please upload Logo",
-                extension: "Please upload a PDF or Word document",
-                filesize: "File size must be less than 10MB"
-            }
+            status: "Please select a status"
         },
         errorElement: 'div',
         errorPlacement: customErrorPlacement,

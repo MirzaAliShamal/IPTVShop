@@ -34,10 +34,14 @@ class ServiceController extends Controller
                 return $html;
             })
             ->editColumn('duration', function($row) {
-                return $row->duration.' Month';
+                if ($row->duration > 1) {
+                    return $row->duration.' Months';
+                } else {
+                    return $row->duration.' Month';
+                }
             })
             ->editColumn('price', function($row) {
-                return $row->price.'£';
+                return $row->price.'€';
             })
             ->editColumn('status', function($row) {
                 $html = '';
@@ -77,7 +81,7 @@ class ServiceController extends Controller
     public function save(Request $request)
     {
         $request->validate([
-            'duration' => 'required|in:1,3,6,12',
+            'duration' => 'required|numeric',
             'title' => 'required|string',
             'price' => 'required|numeric',
             'short_desc' => 'required|string|max:255',
@@ -109,7 +113,7 @@ class ServiceController extends Controller
     public function update(Request $request, Service $service)
     {
         $request->validate([
-            'duration' => 'required|in:1,3,6,12',
+            'duration' => 'required|numeric',
             'title' => 'required|string',
             'price' => 'required|numeric',
             'short_desc' => 'required|string|max:255',

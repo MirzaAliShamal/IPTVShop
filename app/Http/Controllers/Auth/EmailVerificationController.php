@@ -32,6 +32,8 @@ class EmailVerificationController extends Controller
         $user->email_verified_at = now();
         $user->save();
 
+        $request->session()->forget('otp');
+
         $email = new WelcomeEmail();
         Mail::to($user->email)->send($email);
 

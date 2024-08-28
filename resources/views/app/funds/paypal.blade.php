@@ -41,7 +41,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-1">
+                        <div class="col-lg-1 col-md-1 col-sm-3 col-3">
                             <a href="{{ route('funds.index') }}" class="btn btn-secondary">Back</a>
                         </div>
                     </div>

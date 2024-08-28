@@ -49,7 +49,7 @@ class RedeemGiftCardController extends Controller
             })
             ->editColumn('amount', function($row) {
                 if ($row->amount !== null && $row->amount > 0) {
-                    return $row->amount.'£';
+                    return $row->amount.'€';
                 } else {
                     return 'N/A';
                 }

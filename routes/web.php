@@ -6,6 +6,7 @@ use App\Http\Controllers\Customer\IPTVController;
 use App\Http\Controllers\Customer\FundsController;
 use App\Http\Controllers\Customer\ProductController;
 use App\Http\Controllers\Customer\ServiceController;
+use App\Http\Controllers\Customer\TestIPTVController;
 use App\Http\Controllers\Customer\DashboardController;
 use App\Http\Controllers\Customer\SocialLoginController;
 
@@ -51,9 +52,18 @@ Route::middleware('auth', 'customer', 'otp.verify')->group(function () {
     Route::post('/shipping-address', [DashboardController::class, 'storeShippingAddress'])->name('store.shipping.address');
     Route::get('/help', [DashboardController::class, 'help'])->name('help');
 
+    Route::prefix('test')->name('test.')->group(function () {
+        Route::get('/', [TestIPTVController::class, 'index'])->name('index');
+        Route::get('/get', [TestIPTVController::class, 'get'])->name('get');
+        Route::get('/verify', [TestIPTVController::class, 'verify'])->name('verify');
+        Route::post('/verify', [TestIPTVController::class, 'storeVerify'])->name('store.verify');
+        Route::get('/resend', [TestIPTVController::class, 'resend'])->name('resend');
+        Route::get('/otp', [TestIPTVController::class, 'otp'])->name('otp');
+        Route::post('/otp', [TestIPTVController::class, 'storeOtp'])->name('store.otp');
+        Route::get('/thank-you', [TestIPTVController::class, 'thankyou'])->name('thankyou');
+    });
+
     Route::prefix('iptv')->name('iptv.')->group(function () {
-        Route::get('/test', [IPTVController::class, 'test'])->name('test');
-        Route::get('/get-test', [IPTVController::class, 'getTest'])->name('get.test');
         Route::get('/my-subscriptions', [IPTVController::class, 'mySubscription'])->name('my.subscription');
         Route::get('/services', [IPTVController::class, 'services'])->name('services');
         Route::get('/purchase/{id}', [IPTVController::class, 'purchase'])->name('purchase');
@@ -62,16 +72,20 @@ Route::middleware('auth', 'customer', 'otp.verify')->group(function () {
 
     Route::prefix('popular-services')->name('services.')->group(function () {
         Route::get('/', [ServiceController::class, 'index'])->name('index');
+        Route::get('/view/{id}', [ServiceController::class, 'view'])->name('view');
         Route::get('/my-services', [ServiceController::class, 'myService'])->name('my.service');
         Route::get('/purchase/{id}', [ServiceController::class, 'purchase'])->name('purchase');
         Route::get('/thank-you', [ServiceController::class, 'thankyou'])->name('thankyou');
+        Route::post('/review/{id}', [ServiceController::class, 'review'])->name('review');
     });
 
     Route::prefix('popular-products')->name('products.')->group(function () {
         Route::get('/', [ProductController::class, 'index'])->name('index');
+        Route::get('/view/{id}', [ProductController::class, 'view'])->name('view');
         Route::get('/my-products', [ProductController::class, 'myProduct'])->name('my.product');
         Route::get('/purchase/{id}', [ProductController::class, 'purchase'])->name('purchase');
         Route::get('/thank-you', [ProductController::class, 'thankyou'])->name('thankyou');
+        Route::post('/review/{id}', [ProductController::class, 'review'])->name('review');
     });
 
     Route::prefix('funds')->name('funds.')->group(function () {
