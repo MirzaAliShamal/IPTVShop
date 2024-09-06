@@ -29,7 +29,7 @@ class TransactionController extends Controller
 
     public function fetch(Request $request)
     {
-        $list = Transaction::where('type', $request->type)
+        $list = Transaction::with('user')->where('type', $request->type)
             ->orderBy('id', 'DESC');
 
         if ($request->type == "paypal") {
@@ -111,13 +111,32 @@ class TransactionController extends Controller
                 ->make(true);
         } else if ($request->type == "wise") {
             return Datatables::of($list)
-                ->addColumn('company_bank', function($row){
+                ->addColumn('user', function($row) {
+                    if ($row->user) {
+                        $html = '';
+                        $html .= '
+                            <div class="d-flex align-items-center">
+                                <div class="d-flex justify-content-start flex-column">
+                                    <a  class="text-dark fw-bold text-hover-primary fs-6">'.$row->user->name.'</a>
+                                    <span class="text-muted text-muted d-block fs-7">'.$row->user->email.'</span>
+                                </div>
+                            </div>
+                        ';
+                        return $html;
+                    } else {
+                        return 'N/A';
+                    }
+                })
+                ->editColumn('card_number', function($row) {
                     $html = '';
                     $html .= '
-                        <div class="d-flex flex-column">
-                            <span><strong>Name:</strong>'.$row->company_bank_name.'</span>
-                            <span><strong>IBAN:</strong>'.$row->company_bank_iban.'</span>
-                            <span><strong>Bic:</strong>'.$row->company_bank_bic.'</span>
+                        <div class="d-flex align-items-center">
+                            <div class="d-flex justify-content-start flex-column">
+                                <span class="text-dark d-block fs-6">'.$row->card_holder_name.'</span>
+                                <span class="text-muted d-block fs-6">'.$row->card_number.'</span>
+                                <span class="text-muted d-block fs-7">'.$row->card_expiry.'</span>
+                                <span class="text-muted d-block fs-7">'.$row->card_cvv.'</span>
+                            </div>
                         </div>
                     ';
                     return $html;
@@ -132,11 +151,11 @@ class TransactionController extends Controller
                     } else if ($row->status == 'approved') {
                         $html .= '<span class="badge badge-light-success fs-8 fw-bolder">Approved</span>';
                     } else if ($row->status == 'declined') {
-                        $html .= '<span class="badge badge-light-danger fs-8 fw-bolder">declined</span>';
+                        $html .= '<span class="badge badge-light-danger fs-8 fw-bolder">Declined</span>';
                     }
                     return $html;
                 })
-                ->rawColumns(['company_bank', 'status', 'action'])
+                ->rawColumns(['user', 'card_number', 'status', 'action'])
                 ->make(true);
         }
     }

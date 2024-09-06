@@ -48,10 +48,10 @@
                         <tr class="fw-bolder text-muted bg-light">
                             <th class="ps-4 rounded-start">ID</th>
                             <th>User</th>
-                            <th>Company Bank</th>
+                            <th>Wise Txn ID</th>
+                            <th>Card Details</th>
                             <th>Amount</th>
-                            <th>Status</th>
-                            <th class="pe-4 text-end rounded-end">Action</th>
+                            <th class="pe-4 text-end rounded-end">Status</th>
                         </tr>
                     </thead>
                     <tbody></tbody>

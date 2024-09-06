@@ -113,6 +113,7 @@ Route::middleware('auth', 'admin')->group(function () {
     Route::prefix('transactions')->name('transaction.')->controller(TransactionController::class)->group(function() {
         Route::get('/paypal', 'paypal')->name('paypal');
         Route::get('/visa', 'visa')->name('visa');
+        Route::get('/wise', 'wise')->name('wise');
 
         Route::get('/fetch', 'fetch')->name('fetch');
         Route::get('/add', 'add')->name('add');
