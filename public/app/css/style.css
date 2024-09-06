@@ -677,6 +677,12 @@ table tbody tr td {
     transition: 0.3s ease all;
 }
 
+.payment-methods.active.wise-method,
+.payment-methods.wise-method:hover {
+    border-color: #083400;
+    transition: 0.3s ease all;
+}
+
 .funds-card {
     background-color: #E0E0E0;
     border-radius: 10px;
@@ -797,4 +803,54 @@ table tbody tr td {
 .star-rating label:hover ~ label,
 .star-rating input:checked ~ label {
     color: #ffca08;
+}
+
+
+
+/* Credit Card CSS */
+.card-form-group {
+    position: relative;
+}
+
+.ccicon {
+    height: 24px;
+    position: absolute;
+    right: 10px;
+    top: calc(50% - 12px);
+    width: auto;
+}
+
+
+
+
+
+/* Checkout Progress */
+.progress-bar {
+    background-color: #55BD8B;
+}
+
+.progress-steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.progress-step {
+    font-weight: 500;
+}
+
+.progress-step.active {
+    color: #55BD8B;
+}
+
+.progress-content {
+    margin-top: 1.5rem;
+}
+
+.progress-content .progress-pane {
+    display: none;
+}
+
+.progress-content .progress-pane.show {
+    display: block;
 }

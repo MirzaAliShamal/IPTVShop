@@ -45,6 +45,7 @@ class RegisteredUserController extends Controller
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'wallet_balance' => 0,
         ]);
 
         $otp = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);

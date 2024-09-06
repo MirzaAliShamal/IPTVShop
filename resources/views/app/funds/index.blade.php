@@ -28,6 +28,11 @@
                                 <img src="{{ asset('app/images/visa.png') }}" class="img-fluid" alt="">
                             </div>
                         </div>
+                        <div class="col-lg-3 col-md-3 col-sm-4 col-4 mb-3">
+                            <div class="payment-methods wise-method" id="pills-wise-tab" data-bs-toggle="pill" data-bs-target="#pills-wise" type="button" role="tab" aria-controls="pills-wise" aria-selected="false">
+                                <img src="{{ asset('app/images/wise.png') }}" class="img-fluid" alt="">
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-content mt-5" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-giftcard" role="tabpanel" aria-labelledby="pills-giftcard-tab" tabindex="0">
@@ -95,6 +100,31 @@
                                                     <div class="funds-card gift-card">
                                                         <div class="funds-logo">
                                                             <img src="{{ asset('app/images/visa-card.png') }}" alt="">
+                                                        </div>
+                                                        <span class="funds-price">{{ $visaCard->amount }}€</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-wise" role="tabpanel" aria-labelledby="pills-wise-tab" tabindex="0">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-9 col-12">
+                                    <div class="row justify-content-center">
+                                        <div class="col-lg-9 col-12 text-center mb-4">
+                                            <p>Select the amount you want and click on continue</p>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        @foreach ($visaCards as $visaCard)
+                                            <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                                <a href="{{ route('funds.wise', $visaCard->id) }}" class="d-block">
+                                                    <div class="funds-card gift-card">
+                                                        <div class="funds-logo">
+                                                            <img src="{{ asset('app/images/wise.png') }}" alt="">
                                                         </div>
                                                         <span class="funds-price">{{ $visaCard->amount }}€</span>
                                                     </div>

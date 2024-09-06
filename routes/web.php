@@ -92,7 +92,10 @@ Route::middleware('auth', 'customer', 'otp.verify')->group(function () {
         Route::get('/index', [FundsController::class, 'index'])->name('index');
         Route::get('/paypal/{id}', [FundsController::class, 'paypal'])->name('paypal');
         Route::get('/visa/{id}', [FundsController::class, 'visa'])->name('visa');
+        Route::get('/wise/{id}', [FundsController::class, 'wise'])->name('wise');
         Route::post('/purchase/{id}', [FundsController::class, 'purchase'])->name('purchase');
+        Route::post('/card-payment/{id}', [FundsController::class, 'cardPayment'])->name('card.payment');
+        Route::get('/processing/{id}', [FundsController::class, 'processing'])->name('processing');
         Route::get('/thank-you', [FundsController::class, 'thankyou'])->name('thankyou');
         Route::get('/insufficient-balance', [FundsController::class, 'insufficient'])->name('insufficient');
         Route::get('/redeem-giftcard', [FundsController::class, 'redeemGiftCard'])->name('redeem.giftcard');
