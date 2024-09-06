@@ -22,6 +22,11 @@ class TransactionController extends Controller
         return view('admin.transaction.visa', get_defined_vars());
     }
 
+    public function wise()
+    {
+        return view('admin.transaction.wise', get_defined_vars());
+    }
+
     public function fetch(Request $request)
     {
         $list = Transaction::where('type', $request->type)
@@ -100,6 +105,35 @@ class TransactionController extends Controller
                             <i class="bi bi-trash fs-4 cursor-pointer text-danger"></i>
                         </a>
                     ';
+                    return $html;
+                })
+                ->rawColumns(['company_bank', 'status', 'action'])
+                ->make(true);
+        } else if ($request->type == "wise") {
+            return Datatables::of($list)
+                ->addColumn('company_bank', function($row){
+                    $html = '';
+                    $html .= '
+                        <div class="d-flex flex-column">
+                            <span><strong>Name:</strong>'.$row->company_bank_name.'</span>
+                            <span><strong>IBAN:</strong>'.$row->company_bank_iban.'</span>
+                            <span><strong>Bic:</strong>'.$row->company_bank_bic.'</span>
+                        </div>
+                    ';
+                    return $html;
+                })
+                ->editColumn('amount', function($row) {
+                    return $row->amount.'€';
+                })
+                ->editColumn('status', function($row) {
+                    $html = '';
+                    if ($row->status == 'pending') {
+                        $html .= '<span class="badge badge-light-primary fs-8 fw-bolder">Pending</span>';
+                    } else if ($row->status == 'approved') {
+                        $html .= '<span class="badge badge-light-success fs-8 fw-bolder">Approved</span>';
+                    } else if ($row->status == 'declined') {
+                        $html .= '<span class="badge badge-light-danger fs-8 fw-bolder">declined</span>';
+                    }
                     return $html;
                 })
                 ->rawColumns(['company_bank', 'status', 'action'])

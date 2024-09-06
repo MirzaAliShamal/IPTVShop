@@ -207,6 +207,14 @@
                                 <span class="menu-title">Visa</span>
                             </a>
                         </div>
+                        <div class="menu-item">
+                            <a class="menu-link @routeis('admin.transaction.wise') active @endrouteis" href="{{ route('admin.transaction.wise') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Wise</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <div class="menu-item">
