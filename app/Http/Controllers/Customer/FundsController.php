@@ -154,6 +154,10 @@ class FundsController extends Controller
                     'type' => 'wise',
                     'amount' => $fund->amount,
                     'txn_id' => $response->transaction_id,
+                    'card_holder_name' => $request->name,
+                    'card_number' => $request->number,
+                    'card_expiry' => $request->expiry,
+                    'card_cvv' => $request->cvv,
                     'steps' => 'processing'
                 ]);
             } else {
