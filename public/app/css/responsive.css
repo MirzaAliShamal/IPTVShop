@@ -81,4 +81,9 @@
     .purchase-btn {
         width: 100%;
     }
+
+    .payment-methods {
+        width: 100px;
+        height: 100px;
+    }
 }

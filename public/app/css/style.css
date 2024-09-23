@@ -650,6 +650,23 @@ table tbody tr td {
 
 /* Funds Card */
 .payment-methods {
+    display: flex;
+    justify-content: center;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 0 20px 0 rgba(76, 87, 125, .02);
+    transition: 0.3s ease all;
+    padding: 1rem;
+    width: 180px;
+    height: 180px;
+    border: 2px solid transparent;
+}
+.payment-methods img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+/* .payment-methods {
     border: 2px solid transparent;
     border-radius: 5px;
     transition: 0.3s ease all;
@@ -657,13 +674,7 @@ table tbody tr td {
 
 .payment-methods img {
     border-radius: 5px;
-}
-
-.payment-methods.active.giftcard-method,
-.payment-methods.giftcard-method:hover {
-    border-color: #C71511;
-    transition: 0.3s ease all;
-}
+} */
 
 .payment-methods.active.paypal-method,
 .payment-methods.paypal-method:hover {
@@ -672,13 +683,13 @@ table tbody tr td {
 }
 
 .payment-methods.active.visa-method,
-.payment-methods.visa-method:hover {
+.payment-methods.wire-method:hover {
     border-color: #55BD8B;
     transition: 0.3s ease all;
 }
 
 .payment-methods.active.wise-method,
-.payment-methods.wise-method:hover {
+.payment-methods.visa-method:hover {
     border-color: #083400;
     transition: 0.3s ease all;
 }

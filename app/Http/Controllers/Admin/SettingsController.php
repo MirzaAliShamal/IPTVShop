@@ -8,9 +8,9 @@ use App\Http\Controllers\Controller;
 
 class SettingsController extends Controller
 {
-    public function index()
+    public function paymentMethods()
     {
-        return view('admin.setting.index', get_defined_vars());
+        return view('admin.setting.payment_methods', get_defined_vars());
     }
 
     public function save(Request $request)

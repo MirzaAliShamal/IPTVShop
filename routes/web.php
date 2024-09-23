@@ -90,15 +90,27 @@ Route::middleware('auth', 'customer', 'otp.verify')->group(function () {
 
     Route::prefix('funds')->name('funds.')->group(function () {
         Route::get('/index', [FundsController::class, 'index'])->name('index');
-        Route::get('/paypal/{id}', [FundsController::class, 'paypal'])->name('paypal');
-        Route::get('/visa/{id}', [FundsController::class, 'visa'])->name('visa');
-        Route::get('/wise/{id}', [FundsController::class, 'wise'])->name('wise');
-        Route::post('/purchase/{id}', [FundsController::class, 'purchase'])->name('purchase');
-        Route::post('/card-payment/{id}', [FundsController::class, 'cardPayment'])->name('card.payment');
-        Route::get('/processing/{id}', [FundsController::class, 'processing'])->name('processing');
+        Route::prefix('paypal')->name('paypal.')->group(function() {
+            Route::get('/index', [FundsController::class, 'paypalIndex'])->name('index');
+            Route::get('/checkout/{id}', [FundsController::class, 'paypalCheckout'])->name('checkout');
+            Route::post('/purchase/{id}', [FundsController::class, 'paypalPurchase'])->name('purchase');
+        });
+        Route::prefix('paypals')->name('paypals.')->group(function() {
+            Route::get('/index', [FundsController::class, 'paypalsIndex'])->name('index');
+            Route::get('/checkout/{id}', [FundsController::class, 'paypalsCheckout'])->name('checkout');
+        });
+        Route::prefix('wire-transfer')->name('wire.')->group(function() {
+            Route::get('/index', [FundsController::class, 'wireIndex'])->name('index');
+            Route::get('/checkout/{id}', [FundsController::class, 'wireCheckout'])->name('checkout');
+            Route::post('/purchase/{id}', [FundsController::class, 'wirePurchase'])->name('purchase');
+        });
+        Route::prefix('visa')->name('visa.')->group(function() {
+            Route::get('/index', [FundsController::class, 'visaIndex'])->name('index');
+            Route::get('/checkout/{id}', [FundsController::class, 'visaCheckout'])->name('checkout');
+            Route::post('/purchase/{id}', [FundsController::class, 'visaPurchase'])->name('purchase');
+            Route::get('/processing/{id}', [FundsController::class, 'visaProcessing'])->name('processing');
+        });
         Route::get('/thank-you', [FundsController::class, 'thankyou'])->name('thankyou');
         Route::get('/insufficient-balance', [FundsController::class, 'insufficient'])->name('insufficient');
-        Route::get('/redeem-giftcard', [FundsController::class, 'redeemGiftCard'])->name('redeem.giftcard');
-        Route::post('/redeem-giftcard', [FundsController::class, 'storeRedeemGiftCard'])->name('store.redeem.giftcard');
     });
 });

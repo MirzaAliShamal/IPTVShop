@@ -22,6 +22,9 @@ class ProductOrderController extends Controller
     public function fetch(Request $request)
     {
         $list = ProductOrder::with('user', 'product')->orderBy('id', 'DESC');
+        if (isset($request->status)) {
+            $list = $list->where('status', $request->status);;
+        }
 
         return Datatables::of($list)
             ->addColumn('user', function($row) {

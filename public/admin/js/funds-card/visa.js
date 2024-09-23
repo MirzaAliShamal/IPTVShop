@@ -12,7 +12,7 @@
         ajax: {
             "url" : baseUrl+"/funds-cards/fetch",
             "data" : function(d) {
-                d.type = 'visa'
+                d.type = 'wise'
             }
         },
         columns: [

@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ServiceController;
-use App\Http\Controllers\Admin\GiftCardController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FundsCardController;
@@ -13,7 +12,7 @@ use App\Http\Controllers\Admin\IPTVServiceController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\ProductOrderController;
 use App\Http\Controllers\Admin\PayPalAccountController;
-use App\Http\Controllers\Admin\RedeemGiftCardController;
+use App\Http\Controllers\Admin\PayPalMultipleController;
 use App\Http\Controllers\Admin\TestIptvAccountController;
 use App\Http\Controllers\Admin\IPTVSubscriptionController;
 use App\Http\Controllers\Admin\ServiceSubscriptionController;
@@ -39,7 +38,7 @@ Route::middleware('auth', 'admin')->group(function () {
     });
 
     Route::prefix('settings')->name('setting.')->controller(SettingsController::class)->group(function() {
-        Route::get('/', 'index')->name('index');
+        Route::get('/payment-methods', 'paymentMethods')->name('payment.method');
         Route::post('/save', 'save')->name('save');
     });
 
@@ -47,6 +46,8 @@ Route::middleware('auth', 'admin')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/fetch', 'fetch')->name('fetch');
         Route::get('/delete/{user}', 'delete')->name('delete');
+        Route::get('/adjust/{user}', 'adjust')->name('adjust');
+        Route::put('/adjust/{user}', 'adjustBalance')->name('adjust.balance');
     });
 
     Route::prefix('iptv-services')->name('iptv.service.')->controller(IPTVServiceController::class)->group(function() {
@@ -91,7 +92,9 @@ Route::middleware('auth', 'admin')->group(function () {
 
     Route::prefix('funds-cards')->name('funds.card.')->controller(FundsCardController::class)->group(function() {
         Route::get('/paypal', 'paypal')->name('paypal');
+        Route::get('/wire-transder', 'wireTransfer')->name('wire.transfer');
         Route::get('/visa', 'visa')->name('visa');
+
         Route::get('/fetch', 'fetch')->name('fetch');
         Route::get('/add', 'add')->name('add');
         Route::get('/edit/{fundsCard}', 'edit')->name('edit');
@@ -100,34 +103,27 @@ Route::middleware('auth', 'admin')->group(function () {
         Route::get('/delete/{fundsCard}', 'delete')->name('delete');
     });
 
-    Route::prefix('gift-cards')->name('gift.card.')->controller(GiftCardController::class)->group(function() {
-        Route::get('/', 'index')->name('index');
+    Route::prefix('paypal-multiples')->name('paypal.multiple.')->controller(PayPalMultipleController::class)->group(function() {
+        Route::get('/index', 'index')->name('index');
         Route::get('/fetch', 'fetch')->name('fetch');
         Route::get('/add', 'add')->name('add');
-        Route::get('/edit/{giftCard}', 'edit')->name('edit');
+        Route::get('/edit/{paypal}', 'edit')->name('edit');
         Route::post('/save', 'save')->name('save');
-        Route::put('/update/{giftCard}', 'update')->name('update');
-        Route::get('/delete/{giftCard}', 'delete')->name('delete');
+        Route::get('/view/{paypal}', 'view')->name('view');
+        Route::put('/update/{paypal}', 'update')->name('update');
+        Route::get('/delete/{paypal}', 'delete')->name('delete');
     });
 
     Route::prefix('transactions')->name('transaction.')->controller(TransactionController::class)->group(function() {
         Route::get('/paypal', 'paypal')->name('paypal');
+        Route::get('/wire-transfer', 'wireTransfer')->name('wire.transfer');
         Route::get('/visa', 'visa')->name('visa');
-        Route::get('/wise', 'wise')->name('wise');
 
         Route::get('/fetch', 'fetch')->name('fetch');
         Route::get('/add', 'add')->name('add');
         Route::get('/edit/{transaction}', 'edit')->name('edit');
         Route::put('/update/{transaction}', 'update')->name('update');
         Route::get('/delete/{transaction}', 'delete')->name('delete');
-    });
-
-    Route::prefix('redeem-gift-cards')->name('redeem.gift.card.')->controller(RedeemGiftCardController::class)->group(function() {
-        Route::get('/', 'index')->name('index');
-        Route::get('/fetch', 'fetch')->name('fetch');
-        Route::get('/edit/{userGiftCard}', 'edit')->name('edit');
-        Route::put('/update/{userGiftCard}', 'update')->name('update');
-        Route::get('/delete/{userGiftCard}', 'delete')->name('delete');
     });
 
     Route::prefix('iptv-subscriptions')->name('iptv.subscription.')->controller(IPTVSubscriptionController::class)->group(function() {

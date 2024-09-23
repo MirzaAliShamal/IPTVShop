@@ -37,8 +37,9 @@
                             <label class="required form-label">Type</label>
                             <select name="type" class="form-select" data-control="select2" data-placeholder="Choose any Option">
                                 <option></option>
-                                <option value="paypal" {{ old('type') == '3' ? 'selected' : '' }}>PayPal</option>
-                                <option value="visa" {{ old('type') == '6' ? 'selected' : '' }}>Visa</option>
+                                <option value="paypal" {{ old('type') == 'paypal' ? 'selected' : '' }}>PayPal</option>
+                                <option value="visa" {{ old('type') == 'visa' ? 'selected' : '' }}>Wire Transfer</option>
+                                <option value="wise" {{ old('type') == 'wise' ? 'selected' : '' }}>Visa</option>
                             </select>
                         </div>
                     </div>

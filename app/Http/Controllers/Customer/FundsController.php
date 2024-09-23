@@ -2,110 +2,161 @@
 
 namespace App\Http\Controllers\Customer;
 
-use App\Models\GiftCard;
 use App\Models\FundsCard;
 use App\Models\BankAccount;
 use App\Models\Transaction;
-use App\Models\UserGiftCard;
 use Illuminate\Http\Request;
 use App\Models\PayPalAccount;
+use App\Models\PayPalMultiple;
 use Illuminate\Support\Facades\DB;
+use App\Events\PaymentStatusUpdated;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use App\Events\PaymentStatusUpdated;
 use App\Mail\Customer\FundsApprovedEmail;
 use App\Mail\Customer\FundsDeclinedEmail;
 use App\Mail\Customer\FundsPurchasedEmail;
-use App\Mail\Customer\RedeemGiftCardSubmitted;
 
 class FundsController extends Controller
 {
     public function index()
     {
-        $giftCards = GiftCard::orderBy('amount', 'ASC')->get();
         $paypalCards = FundsCard::where('type', 'paypal')->orderBy('amount', 'ASC')->get();
         $visaCards = FundsCard::where('type', 'visa')->orderBy('amount', 'ASC')->get();
         return view('app.funds.index', get_defined_vars());
     }
 
-    public function paypal($id)
+    // Simple PayPal Payments
+    public function paypalIndex()
+    {
+        $cards = FundsCard::where('type', 'paypal')->orderBy('amount', 'ASC')->get();
+        return view('app.funds.paypal.index', get_defined_vars());
+    }
+
+    public function paypalCheckout($id)
     {
         $fund = FundsCard::find($id);
         $paypalEmail = PayPalAccount::inRandomOrder()->first();
-        return view('app.funds.paypal', get_defined_vars());
+        return view('app.funds.paypal.checkout', get_defined_vars());
     }
 
-    public function visa($id)
+    public function paypalPurchase(Request $request, $id)
     {
         $fund = FundsCard::find($id);
-        $bankAccount = BankAccount::inRandomOrder()->first();
-        return view('app.funds.visa', get_defined_vars());
-    }
+        DB::beginTransaction();
+        try {
+            $paypalAcc = PayPalAccount::find($request->pay_pal_account_id);
+            $user = Auth::user();
 
-    public function wise($id)
-    {
-        $fund = FundsCard::find($id);
-        $bankAccount = BankAccount::inRandomOrder()->first();
-        return view('app.funds.wise', get_defined_vars());
-    }
+            $transaction = Transaction::create([
+                'user_id' => $user->id,
+                'type' => 'paypal',
+                'amount' => $fund->amount,
+                'sender_paypal_email' => $request->paypal_email,
+                'company_paypal_email' => $paypalAcc->email,
+            ]);
 
-    public function purchase(Request $request, $id)
-    {
-        $fund = FundsCard::find($id);
-        if ($request->method == "paypal") {
-            DB::beginTransaction();
-            try {
-                $paypalAcc = PayPalAccount::find($request->pay_pal_account_id);
-                $user = Auth::user();
+            Mail::to($user->email)->send(new FundsPurchasedEmail($user, $transaction));
 
-                $transaction = Transaction::create([
-                    'user_id' => $user->id,
-                    'type' => 'paypal',
-                    'amount' => $fund->amount,
-                    'sender_paypal_email' => $request->paypal_email,
-                    'company_paypal_email' => $paypalAcc->email,
-                ]);
-
-                Mail::to($user->email)->send(new FundsPurchasedEmail($user, $transaction));
-
-                DB::commit();
-                return redirect()->route('funds.thankyou');
-            } catch (\Exception $e) {
-                DB::rollback();
-                return redirect()->back()->with('error', 'Something went wrong, please try again');
-            }
-        } else if ($request->method == "visa") {
-            DB::beginTransaction();
-            try {
-                $bankAcc = BankAccount::find($request->bank_account_id);
-                $user = Auth::user();
-
-                $transaction = Transaction::create([
-                    'user_id' => $user->id,
-                    'type' => 'visa',
-                    'amount' => $fund->amount,
-                    'sender_bank_iban' => $request->visa_iban,
-                    'company_bank_name' => $bankAcc->name,
-                    'company_bank_iban' => $bankAcc->iban,
-                    'company_bank_bic' => $bankAcc->bic,
-                ]);
-
-                Mail::to($user->email)->send(new FundsPurchasedEmail($user, $transaction));
-
-                DB::commit();
-
-                return redirect()->route('funds.thankyou');
-            } catch (\Exception $e) {
-                DB::rollback();
-                return redirect()->back()->with('error', 'Something went wrong, please try again');
-            }
-        } else {
+            DB::commit();
+            return redirect()->route('funds.thankyou');
+        } catch (\Exception $e) {
+            DB::rollback();
             return redirect()->back()->with('error', 'Something went wrong, please try again');
         }
     }
 
-    public function cardPayment(Request $request, $id)
+    // Multiple PayPal Payments
+    public function paypalsIndex()
+    {
+        $cards = PayPalMultiple::with('links')->orderBy('amount', 'ASC')->get();
+        return view('app.funds.paypals.index', get_defined_vars());
+    }
+
+    public function paypalsCheckout($id)
+    {
+        $paypal = PayPalMultiple::find($id);
+
+        $link = DB::transaction(function () use ($paypal) {
+            $paypal = PayPalMultiple::lockForUpdate()->find($paypal->id);
+
+            $link = $paypal->links()
+                ->whereNull('user_id')
+                ->lockForUpdate()
+                ->first();
+
+            if (!$link) {
+                throw new \Exception('No available PayPal links.');
+            }
+
+            $link->update(['user_id' => Auth::user()->id]);
+
+            return $link;
+        }, 5);
+
+        if (!$link) {
+            return redirect()->back()->with('error', 'No available PayPal links. Please try again later.');
+        }
+
+        return redirect($link->link);
+    }
+
+    // Wire Transfer Payments
+    public function wireIndex()
+    {
+        $cards = FundsCard::where('type', 'visa')->orderBy('amount', 'ASC')->get();
+        return view('app.funds.wire.index', get_defined_vars());
+    }
+
+    public function wireCheckout($id)
+    {
+        $fund = FundsCard::find($id);
+        $bankAccount = BankAccount::inRandomOrder()->first();
+        return view('app.funds.wire.checkout', get_defined_vars());
+    }
+
+    public function wirePurchase(Request $request, $id)
+    {
+        $fund = FundsCard::find($id);
+        DB::beginTransaction();
+        try {
+            $bankAcc = BankAccount::find($request->bank_account_id);
+            $user = Auth::user();
+
+            $transaction = Transaction::create([
+                'user_id' => $user->id,
+                'type' => 'visa',
+                'amount' => $fund->amount,
+                'sender_bank_iban' => $request->visa_iban,
+                'company_bank_name' => $bankAcc->name,
+                'company_bank_iban' => $bankAcc->iban,
+                'company_bank_bic' => $bankAcc->bic,
+            ]);
+
+            Mail::to($user->email)->send(new FundsPurchasedEmail($user, $transaction));
+
+            DB::commit();
+            return redirect()->route('funds.thankyou');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with('error', 'Something went wrong, please try again');
+        }
+    }
+
+    // Visa Card Payments
+    public function visaIndex()
+    {
+        $cards = FundsCard::where('type', 'wise')->orderBy('amount', 'ASC')->get();
+        return view('app.funds.visa.index', get_defined_vars());
+    }
+
+    public function visaCheckout($id)
+    {
+        $fund = FundsCard::find($id);
+        return view('app.funds.visa.checkout', get_defined_vars());
+    }
+
+    public function visaPurchase(Request $request, $id)
     {
         $fund = FundsCard::find($id);
 
@@ -147,7 +198,7 @@ class FundsController extends Controller
             curl_close($curl);
 
             $response = json_decode($response);
-            
+
             if ($response->success) {
                 $transaction = Transaction::create([
                     'user_id' => $user->id,
@@ -165,25 +216,24 @@ class FundsController extends Controller
                 return redirect()->back()->with('error', $response->message);
             }
             DB::commit();
-            return redirect()->route('funds.processing', $transaction->id);
+            return redirect()->route('funds.visa.processing', $transaction->id);
         } catch (\Exception $e) {
             DB::rollback();
-            dd($e->getMessage());
             return redirect()->back()->with('error', 'Something went wrong, please try again');
         }
     }
 
-    public function processing($id)
+    public function visaProcessing($id)
     {
         $transaction = Transaction::find($id);
-        
+
         if (is_null($transaction)) {
-            return redirect()->back()->with('error', 'Something went wrong, please try again'); 
+            return redirect()->back()->with('error', 'Something went wrong, please try again');
         }
         if ($transaction->steps == 'complete') {
-            return redirect()->back()->with('error', 'Something went wrong, please try again'); 
+            return redirect()->back()->with('error', 'Something went wrong, please try again');
         }
-        return view('app.funds.processing', get_defined_vars());
+        return view('app.funds.visa.processing', get_defined_vars());
     }
 
     public function webhook(Request $request)
@@ -254,28 +304,5 @@ class FundsController extends Controller
     public function insufficient()
     {
         return view('app.funds.insufficient', get_defined_vars());
-    }
-
-    public function redeemGiftCard()
-    {
-        return view('app.funds.redeem_giftcard', get_defined_vars());
-    }
-
-    public function storeRedeemGiftCard(Request $request)
-    {
-        try {
-            $user  = Auth::user();
-            $redeem = UserGiftCard::create([
-                'user_id' => $user->id,
-                'user_link' => $request->user_link,
-                'code' => $request->code,
-            ]);
-
-            Mail::to($user->email)->send(new RedeemGiftCardSubmitted($user, $redeem));
-
-            return redirect()->route('funds.thankyou');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Something went wrong, please try again');
-        }
     }
 }

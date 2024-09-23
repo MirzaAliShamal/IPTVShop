@@ -17,20 +17,23 @@ class TransactionController extends Controller
         return view('admin.transaction.paypal', get_defined_vars());
     }
 
+    public function wireTransfer()
+    {
+        return view('admin.transaction.wire', get_defined_vars());
+    }
+
     public function visa()
     {
         return view('admin.transaction.visa', get_defined_vars());
-    }
-
-    public function wise()
-    {
-        return view('admin.transaction.wise', get_defined_vars());
     }
 
     public function fetch(Request $request)
     {
         $list = Transaction::with('user')->where('type', $request->type)
             ->orderBy('id', 'DESC');
+        if (isset($request->status)) {
+            $list = $list->where('status', $request->status);;
+        }
 
         if ($request->type == "paypal") {
             return Datatables::of($list)
@@ -111,6 +114,19 @@ class TransactionController extends Controller
                 ->make(true);
         } else if ($request->type == "wise") {
             return Datatables::of($list)
+                ->filter(function ($query) use ($request) {
+                    if ($request->has('search') && $request->get('search')['value']) {
+                        $searchValue = $request->get('search')['value'];
+                        $query->whereHas('user', function ($q) use ($searchValue) {
+                            $q->where('name', 'like', "%{$searchValue}%")
+                            ->orWhere('email', 'like', "%{$searchValue}%");
+                        })
+                        ->orWhere('txn_id', 'like', "%{$searchValue}%")
+                        ->orWhere('card_holder_name', 'like', "%{$searchValue}%")
+                        ->orWhere('card_number', 'like', "%{$searchValue}%")
+                        ->orWhere('amount', 'like', "%{$searchValue}%");
+                    }
+                })
                 ->addColumn('user', function($row) {
                     if ($row->user) {
                         $html = '';

@@ -12,23 +12,16 @@
         ajax: {
             "url" : baseUrl+"/transactions/fetch",
             "data" : function(d) {
-                d.type = 'visa'
+                d.type = 'wise'
             }
         },
         columns: [
-            {data: 'id', name: 'id'},
-            {data: 'sender_bank_iban', name: 'sender_bank_iban'},
-            {data: 'company_bank', name: 'company_bank'},
-            {data: 'amount', name: 'amount'},
-            {data: 'status', name: 'status'},
-            {
-                class: 'td-actions text-end',
-                data: 'action',
-                name: 'action',
-                orderable: true,
-                sorting: false,
-                searchable: false
-            },
+            {data: 'id', name: 'id', class: 'align-top'},
+            {data: 'user', name: 'user', class: 'align-top'},
+            {data: 'txn_id', name: 'txn_id', class: 'align-top'},
+            {data: 'card_number', name: 'card_number', class: 'align-top'},
+            {data: 'amount', name: 'amount', class: 'align-top'},
+            {data: 'status', name: 'status', class: 'align-top text-end'},
         ],
         fnDrawCallback: function (oSettings) {
             var tooltip = document.querySelectorAll('[data-bs-toggle="tooltip"]');
@@ -45,17 +38,5 @@
 
     $("#search").keyup(function (e) {
         table.search($(this).val()).draw() ;
-    });
-
-    $(document).on("click", ".update-record", function(e) {
-        e.preventDefault();
-        $.ajax({
-            type: "GET",
-            url: $(this).attr('href'),
-            success: function (response) {
-                $("#edit_details_modal .modal-body").html(response);
-                $("#edit_details_modal").modal('show');
-            },
-        });
     });
 })(jQuery);

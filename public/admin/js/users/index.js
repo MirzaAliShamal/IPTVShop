@@ -46,4 +46,16 @@
     $("#search").keyup(function (e) {
         table.search($(this).val()).draw() ;
     });
+
+    $(document).on("click", ".adjust-balance", function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: "GET",
+            url: $(this).attr('href'),
+            success: function (response) {
+                $("#adjust_details_modal .modal-body").html(response);
+                $("#adjust_details_modal").modal('show');
+            },
+        });
+    });
 })(jQuery);

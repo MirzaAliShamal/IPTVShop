@@ -14,7 +14,7 @@ use App\Mail\Customer\IptvSubscriptionSuspendedEmail;
 
 class IPTVSubscriptionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         return view('admin.iptv_subscription.index', get_defined_vars());
     }
@@ -22,6 +22,9 @@ class IPTVSubscriptionController extends Controller
     public function fetch(Request $request)
     {
         $list = Subscription::with('user')->where('type', 'iptv')->orderBy('id', 'DESC');
+        if (isset($request->status)) {
+            $list = $list->where('status', $request->status);;
+        }
 
         return Datatables::of($list)
             ->addColumn('user', function($row) {

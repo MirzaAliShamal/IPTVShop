@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use DataTables;
 use App\Models\User;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class UserController extends Controller
@@ -40,6 +42,9 @@ class UserController extends Controller
             ->addColumn('action', function($row){
                 $html = '';
                 $html .= '
+                    <a href="'.route('admin.user.adjust', $row->id).'" class="me-2 adjust-balance" data-bs-toggle="tooltip" data-bs-placement="top" title="Adjust Balance">
+                        <i class="bi bi-cash-stack fs-4 cursor-pointer text-success"></i>
+                    </a>
                     <a href="'.route('admin.user.delete', $row->id).'" class="me-2 delete-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Record">
                         <i class="bi bi-trash fs-4 cursor-pointer text-danger"></i>
                     </a>
@@ -48,6 +53,43 @@ class UserController extends Controller
             })
             ->rawColumns(['address', 'action'])
             ->make(true);
+    }
+
+    public function adjust(User $user)
+    {
+        return view('admin.users.adjust', get_defined_vars());
+    }
+
+    public function adjustBalance(Request $request, User $user)
+    {
+        DB::beginTransaction();
+        try {
+            $transaction = Transaction::create([
+                'user_id' => $user->id,
+                'type' => 'manual',
+                'amount' => $request->amount,
+                'status' => 'approved',
+                'action' => $request->action,
+            ]);
+
+            $balance = 0;
+            if ($request->action == 'deposit') {
+                $balance = $user->wallet_balance + $request->amount;
+            } else if ($request->action == 'refund') {
+                $balance = $user->wallet_balance - $request->amount;
+            }
+
+            if ($transaction) {
+                $user->wallet_balance = $balance;
+                $user->save();
+            }
+
+            DB::commit();
+            return redirect()->route('admin.user.index')->with('success', 'User balance adjusted!');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with('error', 'Something went wrong');
+        }
     }
 
     public function delete(User $user)

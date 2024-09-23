@@ -15,6 +15,11 @@ class FundsCardController extends Controller
         return view('admin.funds-card.paypal', get_defined_vars());
     }
 
+    public function wireTransfer()
+    {
+        return view('admin.funds-card.wire', get_defined_vars());
+    }
+
     public function visa()
     {
         return view('admin.funds-card.visa', get_defined_vars());
@@ -57,7 +62,7 @@ class FundsCardController extends Controller
     public function save(Request $request)
     {
         $request->validate([
-            'type' => 'required|in:paypal,visa',
+            'type' => 'required|in:paypal,visa,wise',
             'amount' => 'required|numeric'
         ]);
 
@@ -75,7 +80,7 @@ class FundsCardController extends Controller
     public function update(Request $request, FundsCard $fundsCard)
     {
         $request->validate([
-            'type' => 'required|in:paypal,visa',
+            'type' => 'required|in:paypal,visa,wise',
             'amount' => 'required|numeric'
         ]);
 

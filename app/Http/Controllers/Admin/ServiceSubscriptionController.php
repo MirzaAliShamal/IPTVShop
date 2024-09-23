@@ -22,6 +22,9 @@ class ServiceSubscriptionController extends Controller
     public function fetch(Request $request)
     {
         $list = Subscription::with('user')->where('type', 'other')->orderBy('id', 'DESC');
+        if (isset($request->status)) {
+            $list = $list->where('status', $request->status);;
+        }
 
         return Datatables::of($list)
             ->addColumn('user', function($row) {
