@@ -75,30 +75,41 @@ class FundsController extends Controller
 
     public function paypalsCheckout($id)
     {
-        $paypal = PayPalMultiple::find($id);
+        $paypal = PayPalMultiple::findOrFail($id);
 
         $link = DB::transaction(function () use ($paypal) {
-            $paypal = PayPalMultiple::lockForUpdate()->find($paypal->id);
+            $paypal = PayPalMultiple::lockForUpdate()->findOrFail($paypal->id);
 
-            $link = $paypal->links()
-                ->whereNull('user_id')
-                ->lockForUpdate()
-                ->first();
+            // Get or create the rotation record
+            $rotation = $paypal->linkRotation()->firstOrCreate(
+                [],
+                ['last_used_index' => null]
+            );
 
-            if (!$link) {
+            $links = $paypal->links()->pluck('link')->toArray();
+            $count = count($links);
+
+            if ($count === 0) {
                 throw new \Exception('No available PayPal links.');
             }
 
-            $link->update(['user_id' => Auth::user()->id]);
+            // Calculate the next index
+            $nextIndex = $rotation->last_used_index === null ? 0 : ($rotation->last_used_index + 1) % $count;
 
-            return $link;
+            // Update the last used index
+            $rotation->update(['last_used_index' => $nextIndex]);
+
+            // Get the next link
+            $nextLink = $links[$nextIndex];
+
+            return $nextLink;
         }, 5);
 
         if (!$link) {
             return redirect()->back()->with('error', 'No available PayPal links. Please try again later.');
         }
 
-        return redirect($link->link);
+        return redirect($link);
     }
 
     // Wire Transfer Payments

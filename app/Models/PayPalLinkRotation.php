@@ -6,14 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class PayPalMultipleLink extends Model
+class PayPalLinkRotation extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
 
-    public function paypal(): BelongsTo
+    protected $casts = [
+        'last_used_index' => 'integer',
+    ];
+
+    public function payPalMultiple(): BelongsTo
     {
-        return $this->belongsTo(PayPalMultiple::class, 'pay_pal_multiple_id', 'id');
+        return $this->belongsTo(PayPalMultiple::class, 'pay_pal_multiple_id');
     }
 }

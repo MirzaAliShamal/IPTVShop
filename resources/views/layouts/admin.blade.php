@@ -12,7 +12,7 @@
         <link rel="apple-touch-icon" href="{{ asset('admin/media/logos/iptv-shop-icon-180x180.png') }}" />
         <meta name="msapplication-TileImage" content="{{ asset('admin/media/logos/iptv-shop-icon-270x270.png') }}" />
 
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
+		<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" />
         <link href="{{ asset('admin/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('admin/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('admin/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
