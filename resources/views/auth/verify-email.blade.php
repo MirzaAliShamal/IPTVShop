@@ -51,7 +51,7 @@
 
 @section('js')
     <script>
-        let startTime = "{{ session('otp')['started_at'] }}";
+        let startTime = "{{ session('otp')['started_at'] ?? null }}";
     </script>
     <script src="{{ asset('app/js/auth/verifyEmail.js?v='.rand()) }}"></script>
 @endsection

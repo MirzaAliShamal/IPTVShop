@@ -1,25 +1,60 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+@extends('layouts.auth')
+
+@section('title', 'Forgot Password')
+
+@section('content')
+<div class="container min-h-100">
+    <div class="row min-h-100 justify-content-between align-items-center">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+            <div class="auth-form">
+                <div class="auth-form-header">
+                    <h2>FORGOT YOUR PASSWORD?</h2>
+                    <p>No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.</p>
+                    @if (session('status'))
+                        <div class="alert alert-success mt-3 text-start">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+                </div>
+                <div class="auth-form-body">
+                    <form action="{{ route('password.email') }}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Enter your email" autocomplete="off">
+                            @error('email')
+                                <div class="invalid-feedback">
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <!-- Google Recaptcha Widget-->
+                            <div class="g-recaptcha @error('g-recaptcha-response') is-invalid @enderror" data-sitekey={{ config('services.recaptcha.key') }}></div>
+                            @error('g-recaptcha-response')
+                                <div class="invalid-feedback">
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary w-100">Email Password Reset Link</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="auth-form-footer">
+                    <p>Already an account? <a href="{{ route('login') }}" class="text-primary">Login Here!</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-7 col-md-7 col-sm-12 col-12">
+            <div class="auth-image">
+                <img src="{{ asset('app/images/signin-page.png') }}" class="img-fluid" alt="">
+            </div>
+        </div>
     </div>
-
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
-
-    <form method="POST" action="{{ route('password.email') }}">
-        @csrf
-
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Email Password Reset Link') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+</div>
+@endsection
+@section('js')
+    <script async src="https://www.google.com/recaptcha/api.js"></script>
+@endsection

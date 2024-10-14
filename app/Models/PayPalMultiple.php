@@ -13,13 +13,18 @@ class PayPalMultiple extends Model
 
     protected $guarded = [];
 
+    public function linkRotation(): HasOne
+    {
+        return $this->hasOne(PayPalLinkRotation::class, 'pay_pal_multiple_id');
+    }
+
     public function links(): HasMany
     {
         return $this->hasMany(PayPalMultipleLink::class, 'pay_pal_multiple_id', 'id');
     }
 
-    public function linkRotation(): HasOne
+    public function userAssignments(): HasMany
     {
-        return $this->hasOne(PayPalLinkRotation::class, 'pay_pal_multiple_id');
+        return $this->hasMany(UserPaypalLinkAssignment::class);
     }
 }

@@ -13,6 +13,7 @@ use App\Events\PaymentStatusUpdated;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use App\Models\UserPaypalLinkAssignment;
 use App\Mail\Customer\FundsApprovedEmail;
 use App\Mail\Customer\FundsDeclinedEmail;
 use App\Mail\Customer\FundsPurchasedEmail;
@@ -76,33 +77,61 @@ class FundsController extends Controller
     public function paypalsCheckout($id)
     {
         $paypal = PayPalMultiple::findOrFail($id);
+        $user = Auth::user();
 
-        $link = DB::transaction(function () use ($paypal) {
+        $link = DB::transaction(function () use ($paypal, $user) {
             $paypal = PayPalMultiple::lockForUpdate()->findOrFail($paypal->id);
 
-            // Get or create the rotation record
-            $rotation = $paypal->linkRotation()->firstOrCreate(
-                [],
-                ['last_used_index' => null]
-            );
+            // Check if the user already has an assignment for this PayPalMultiple
+            $assignment = UserPaypalLinkAssignment::where('user_id', $user->id)
+                ->where('pay_pal_multiple_id', $paypal->id)
+                ->first();
 
-            $links = $paypal->links()->pluck('link')->toArray();
-            $count = count($links);
-
-            if ($count === 0) {
-                throw new \Exception('No available PayPal links.');
+            if ($assignment) {
+                // User already has an assigned link, use it
+                return $assignment->payPalMultipleLink->link;
             }
 
-            // Calculate the next index
-            $nextIndex = $rotation->last_used_index === null ? 0 : ($rotation->last_used_index + 1) % $count;
+            // User doesn't have an assignment, let's assign a link
+            $links = $paypal->links()->get();
+            $assignedLinkIds = UserPaypalLinkAssignment::where('pay_pal_multiple_id', $paypal->id)
+                ->pluck('pay_pal_multiple_link_id');
 
-            // Update the last used index
-            $rotation->update(['last_used_index' => $nextIndex]);
+            // Find the first unassigned link
+            $unassignedLink = $links->whereNotIn('id', $assignedLinkIds)->first();
 
-            // Get the next link
-            $nextLink = $links[$nextIndex];
+            if ($unassignedLink) {
+                // We found an unassigned link, let's assign it to the user
+                UserPaypalLinkAssignment::create([
+                    'user_id' => $user->id,
+                    'pay_pal_multiple_id' => $paypal->id,
+                    'pay_pal_multiple_link_id' => $unassignedLink->id,
+                ]);
 
-            return $nextLink;
+                return $unassignedLink->link;
+            } else {
+                // All links are assigned, use round-robin
+                $count = $links->count();
+
+                // Get the least used link
+                $linkUsageCounts = UserPaypalLinkAssignment::where('pay_pal_multiple_id', $paypal->id)
+                    ->groupBy('pay_pal_multiple_link_id')
+                    ->selectRaw('pay_pal_multiple_link_id, count(*) as usage_count')
+                    ->orderBy('usage_count', 'asc')
+                    ->first();
+
+                $leastUsedLinkId = $linkUsageCounts->pay_pal_multiple_link_id;
+                $nextLink = $links->firstWhere('id', $leastUsedLinkId);
+
+                // Assign this link to the user
+                UserPaypalLinkAssignment::create([
+                    'user_id' => $user->id,
+                    'pay_pal_multiple_id' => $paypal->id,
+                    'pay_pal_multiple_link_id' => $nextLink->id,
+                ]);
+
+                return $nextLink->link;
+            }
         }, 5);
 
         if (!$link) {
