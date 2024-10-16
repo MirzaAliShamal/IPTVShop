@@ -65,8 +65,28 @@ class User extends Authenticatable
         return Crypt::decrypt($value);
     }
 
+    public function subscriptions(): HasMany
+    {
+        return $this->hasMany(Subscription::class);
+    }
+
+    public function productOrders(): HasMany
+    {
+        return $this->hasMany(ProductOrder::class);
+    }
+
     public function userTestIptvAccounts(): HasMany
     {
         return $this->hasMany(UserTestIptvAccount::class);
+    }
+
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function reminders(): HasMany
+    {
+        return $this->hasMany(Reminder::class);
     }
 }

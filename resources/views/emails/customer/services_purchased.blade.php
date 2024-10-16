@@ -25,17 +25,27 @@
                                     </tr>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                         <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; color: #272727; font-size: 14px; vertical-align: top; margin: 0; padding: 10px 10px;" valign="top">
-                                            Hi {{ $user->name }}, Thank you for your purchase of our Popular Service! We appreciate your trust in our service.
+                                            Dear {{ $user->name }},
                                         </td>
                                     </tr>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                         <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; color: #272727; font-size: 14px; vertical-align: top; margin: 0; padding: 10px 10px;" valign="top">
-                                            We are currently processing your order and will display the details shortly
+                                            Thank you for your purchase! We appreciate your choice of our service.
                                         </td>
                                     </tr>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                         <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; color: #272727; font-size: 14px; vertical-align: top; margin: 0; padding: 10px 10px;" valign="top">
-                                            To access your subscription details.please navigate to the "My Services" section where you will find comprehensive information about your package.
+                                            Your order is currently being processed, and we will provide the details shortly.
+                                        </td>
+                                    </tr>
+                                    <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
+                                        <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; color: #272727; font-size: 14px; vertical-align: top; margin: 0; padding: 10px 10px;" valign="top">
+                                            To access your subscription details, please navigate to the "My Services" section, where you will find all relevant details.
+                                        </td>
+                                    </tr>
+                                    <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
+                                        <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; color: #272727; font-size: 14px; vertical-align: top; margin: 0; padding: 10px 10px;" valign="top">
+                                            Thank you!
                                         </td>
                                     </tr>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">

@@ -20,27 +20,27 @@
                                     <tr><td><a href="{{ env('APP_URL') }}"><img src="{{ asset('app/images/iptv-shop-icon-32x32.png') }}" alt="" style="margin-left: auto; margin-right: auto; display:block; margin-bottom: 10px; height: 40px;"></a></td></tr>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                         <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; color: #272727; font-size: 24px; font-weight: 700; text-align: center; vertical-align: top; margin: 0; padding: 0 0 10px;" valign="top">
-                                            Product Purchased
+                                            Product Shipped
                                         </td>
                                     </tr>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                         <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; color: #272727; font-size: 14px; vertical-align: top; margin: 0; padding: 10px 10px;" valign="top">
-                                            Hi {{ $user->name }}, Thank you for your purchase of our Product! We appreciate your trust in our service.
+                                            Dear {{ $user->name }},
                                         </td>
                                     </tr>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                         <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; color: #272727; font-size: 14px; vertical-align: top; margin: 0; padding: 10px 10px;" valign="top">
-                                            We have shipped the product to your given address <br>
-                                            {{ $user->address }} <br>
-                                            {{ $user->zipcode }} <br>
-                                            {{ $user->region }} <br>
-                                            {{ $user->city }} <br>
-                                            {{ $user->country }} <br>
+                                            Thank you for your order!
                                         </td>
                                     </tr>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                         <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; color: #272727; font-size: 14px; vertical-align: top; margin: 0; padding: 10px 10px;" valign="top">
-                                            To access your product details.please navigate to the "My Products" section where you will find comprehensive information about your order.
+                                            We have shipped the product to your provided address.
+                                        </td>
+                                    </tr>
+                                    <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
+                                        <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; color: #272727; font-size: 14px; vertical-align: top; margin: 0; padding: 10px 10px;" valign="top">
+                                            Thank you for choosing us!
                                         </td>
                                     </tr>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">

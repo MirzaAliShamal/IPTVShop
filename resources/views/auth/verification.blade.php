@@ -11,7 +11,7 @@
                     <h3>Verify your Email Address</h3>
                     <p>A verification code has been sent to jhon@gmail.com</p>
                     <p class="mt-5">
-                        Please check your inbox and enter verification code below to verify your email address. The code will expire in 14:48
+                        Please check your inbox and spam box and enter verification code below to verify your email address. The code will expire in 14:48
                     </p>
                 </div>
                 <div class="auth-form-body">

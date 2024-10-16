@@ -25,17 +25,22 @@
                                     </tr>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                         <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; color: #272727; font-size: 14px; vertical-align: top; margin: 0; padding: 10px 10px;" valign="top">
-                                            Hi {{ $user->name }}, Thank you for your purchase of our Product! We appreciate your trust in our service.
+                                            Dear {{ $user->name }},
                                         </td>
                                     </tr>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                         <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; color: #272727; font-size: 14px; vertical-align: top; margin: 0; padding: 10px 10px;" valign="top">
-                                            Your product has been delivered
+                                            Thank you for your order!
                                         </td>
                                     </tr>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                         <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; color: #272727; font-size: 14px; vertical-align: top; margin: 0; padding: 10px 10px;" valign="top">
-                                            To access your product details.please navigate to the "My Products" section where you will find comprehensive information about your order.
+                                            We are pleased to inform you that your product has been delivered to your address.
+                                        </td>
+                                    </tr>
+                                    <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
+                                        <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; color: #272727; font-size: 14px; vertical-align: top; margin: 0; padding: 10px 10px;" valign="top">
+                                            Thank you for choosing us!
                                         </td>
                                     </tr>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">

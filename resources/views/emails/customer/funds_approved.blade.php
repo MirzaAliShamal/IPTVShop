@@ -25,12 +25,17 @@
                                     </tr>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                         <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; color: #272727; font-size: 14px; vertical-align: top; margin: 0; padding: 10px 10px;" valign="top">
-                                            Hi {{ $user->name }}, Congratulations, Thank you for topping up your account! Our system has verified your payment.
+                                            Dear {{ $user->name }},
                                         </td>
                                     </tr>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                         <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; color: #272727; font-size: 14px; vertical-align: top; margin: 0; padding: 10px 10px;" valign="top">
-                                            You can use you funds to purhcase IPTV Subscriptions, Other Services and Popular products
+                                            Thank you for your recent account top-up. We are pleased to inform you that your payment has been successfully processed.
+                                        </td>
+                                    </tr>
+                                    <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
+                                        <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; color: #272727; font-size: 14px; vertical-align: top; margin: 0; padding: 10px 10px;" valign="top">
+                                            Your funds are now available for use, and you can explore our range of IPTV subscriptions, additional services, and popular products
                                         </td>
                                     </tr>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">

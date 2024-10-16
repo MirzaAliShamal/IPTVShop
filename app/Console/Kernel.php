@@ -14,6 +14,8 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('app:expire-test-iptv-subscription')->everyMinute();
         $schedule->command('app:expire-subscription')->everyMinute();
+        $schedule->command('app:send-inactive-reminders')->everyMinute();
+        $schedule->command('app:send-subscription-expiration-reminders')->everyMinute();
     }
 
     /**

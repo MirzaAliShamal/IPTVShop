@@ -31,7 +31,7 @@ class IptvSubscriptionStartedEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'IPTV Subscription Started',
+            subject: 'Your IPTV Subscription Is Active',
         );
     }
 

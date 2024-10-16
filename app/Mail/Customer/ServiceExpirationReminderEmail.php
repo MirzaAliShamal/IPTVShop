@@ -9,20 +9,20 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class TestIptvStartedEmail extends Mailable
+class ServiceExpirationReminderEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
     protected $user;
-    protected $testIptvAccount;
+    protected $subscription;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($user, $testIptvAccount)
+    public function __construct($user, $subscription)
     {
         $this->user = $user;
-        $this->testIptvAccount = $testIptvAccount;
+        $this->subscription = $subscription;
     }
 
     /**
@@ -31,7 +31,7 @@ class TestIptvStartedEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Test IPTV Activated',
+            subject: 'Your Service Subscription is Expiring Soon',
         );
     }
 
@@ -41,10 +41,10 @@ class TestIptvStartedEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.customer.test_iptv_started',
+            view: 'emails.customer.services_expiring_reminder',
             with: [
                 'user' => $this->user,
-                'testIptvAccount' => $this->testIptvAccount,
+                'subscription' => $this->subscription,
             ]
         );
     }

@@ -53,7 +53,7 @@
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary w-100">Sign in</button>
                         </div>
-                        <div class="form-group d-flex gap-2">
+                        {{-- <div class="form-group d-flex gap-2">
                             <a href="{{ route('auth.socialite.redirect', 'google') }}" class="btn btn-social w-100">
                                 <img src="{{ asset('app/images/google.svg') }}" width="25px" class="img-fluid" alt="">
                                 Signin with Google
@@ -62,7 +62,7 @@
                                 <img src="{{ asset('app/images/facebook.svg') }}" width="15px" class="img-fluid" alt="">
                                 Signin with Facebook
                             </a>
-                        </div>
+                        </div> --}}
                     </form>
                 </div>
                 <div class="auth-form-footer">

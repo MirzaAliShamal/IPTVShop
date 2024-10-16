@@ -15,7 +15,7 @@
                             </div>
                             <p class="mt-5">A verification code has been sent to {{ auth()->user()->email }}</p>
                             <p class="mt-3">
-                                Please check your inbox and enter verification code below to verify your email address. The code will expire in 15 minutes
+                                Please check your inbox and spam box and enter verification code below to verify your email address. The code will expire in 15 minutes
                             </p>
                         </div>
                     </div>

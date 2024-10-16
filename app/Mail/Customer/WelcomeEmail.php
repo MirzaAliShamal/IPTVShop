@@ -13,12 +13,14 @@ class WelcomeEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    protected $user;
+
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($user)
     {
-        //
+        $this->user = $user;
     }
 
     /**
@@ -38,6 +40,9 @@ class WelcomeEmail extends Mailable
     {
         return new Content(
             view: 'emails.customer.welcome',
+            with: [
+                'user' => $this->user,
+            ]
         );
     }
 

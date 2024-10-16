@@ -8,6 +8,7 @@ use App\Mail\Customer\WelcomeEmail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use App\Jobs\Customer\WelcomeEmailJob;
 use App\Providers\RouteServiceProvider;
 use App\Mail\Customer\EmailVerificationEmail;
 
@@ -34,8 +35,7 @@ class EmailVerificationController extends Controller
 
         $request->session()->forget('otp');
 
-        $email = new WelcomeEmail();
-        Mail::to($user->email)->send($email);
+        WelcomeEmailJob::dispatch($user);
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }

@@ -7,9 +7,8 @@ use App\Models\Subscription;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\Customer\ServicesExpiredEmail;
-use App\Mail\Customer\IptvSubscriptionExpiredEmail;
+use App\Jobs\Customer\ServicesExpiredEmailJob;
+use App\Jobs\Customer\IptvSubscriptionExpiredEmailJob;
 
 class ExpireSubscription extends Command
 {
@@ -49,9 +48,9 @@ class ExpireSubscription extends Command
                 // Send email to the user
                 $user = $subscription->user;
                 if ($subscription->type == 'iptv') {
-                    Mail::to($user->email)->send(new IptvSubscriptionExpiredEmail($user, $subscription));
+                    IptvSubscriptionExpiredEmailJob::dispatch($user, $subscription);
                 } else {
-                    Mail::to($user->email)->send(new ServicesExpiredEmail($user, $subscription));
+                    ServicesExpiredEmailJob::dispatch($user, $subscription);
                 }
 
                 $count++;

@@ -9,20 +9,20 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class TestIptvStartedEmail extends Mailable
+class InactiveReminderEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
     protected $user;
-    protected $testIptvAccount;
+    protected $reminderType;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($user, $testIptvAccount)
+    public function __construct($user, $reminderType)
     {
         $this->user = $user;
-        $this->testIptvAccount = $testIptvAccount;
+        $this->reminderType = $reminderType;
     }
 
     /**
@@ -30,8 +30,14 @@ class TestIptvStartedEmail extends Mailable
      */
     public function envelope(): Envelope
     {
+        $subjects = [
+            '24h_reminder' => 'Free 24-Hour IPTV Trial Available',
+            '48h_reminder' => 'Account Top-Up Reminder',
+            '5day_reminder' => 'Don’t Miss Out on Our Services!'
+        ];
+
         return new Envelope(
-            subject: 'Test IPTV Activated',
+            subject: $subjects[$this->reminderType] ?? 'We miss you!',
         );
     }
 
@@ -41,10 +47,9 @@ class TestIptvStartedEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.customer.test_iptv_started',
+            view: "emails.customer.inactive_reminder_{$this->reminderType}",
             with: [
                 'user' => $this->user,
-                'testIptvAccount' => $this->testIptvAccount,
             ]
         );
     }

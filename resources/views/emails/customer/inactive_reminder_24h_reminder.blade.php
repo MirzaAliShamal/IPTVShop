@@ -20,7 +20,7 @@
                                     <tr><td><a href="{{ env('APP_URL') }}"><img src="{{ asset('app/images/iptv-shop-icon-32x32.png') }}" alt="" style="margin-left: auto; margin-right: auto; display:block; margin-bottom: 10px; height: 40px;"></a></td></tr>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                         <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; color: #272727; font-size: 24px; font-weight: 700; text-align: center; vertical-align: top; margin: 0; padding: 0 0 10px;" valign="top">
-                                            Service Expired
+                                            Free 24-Hour IPTV Trial Available
                                         </td>
                                     </tr>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
@@ -30,18 +30,28 @@
                                     </tr>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                         <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; color: #272727; font-size: 14px; vertical-align: top; margin: 0; padding: 10px 10px;" valign="top">
-                                            We regret to inform you that your Service subscription has expired, and access to the service has been suspended.
+                                            If you haven't yet tried our service, we invite you to test our IPTV subscription with a free 24-hour trial. Simply navigate to the "Test IPTV" section and click on "Get Test" to start enjoying our offerings.
                                         </td>
                                     </tr>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                         <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; color: #272727; font-size: 14px; vertical-align: top; margin: 0; padding: 10px 10px;" valign="top">
-                                            You can easily renew your subscription to regain access. If you need any assistance or have questions, please don’t hesitate to contact us.
+                                            Don’t miss out on this opportunity to experience our service!
+                                        </td>
+                                    </tr>
+                                    <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
+                                        <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; color: #272727; font-size: 14px; vertical-align: top; margin: 0; padding: 10px 10px;" valign="top">
+                                            If you have any questions, please feel free to reach out.
+                                        </td>
+                                    </tr>
+                                    <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
+                                        <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; color: #272727; font-size: 14px; vertical-align: top; margin: 0; padding: 10px 10px;" valign="top">
+                                            Best regards,
                                         </td>
                                     </tr>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                         <td class="content-block" itemprop="handler" itemscope itemtype="http://schema.org/HttpActionHandler" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 10px 10px;" valign="top">
-                                            <a href="{{ route('services.my.service') }}" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box;background: #55BD8B;border-color: #55BD8B;border-color: #55BD8B;display:flex;justify-content:center;align-items:center;height: 38.31px;border-radius: 12px;box-shadow: 0px 4px 10px 0px #E9444B40;font-size: 14px;font-weight: 500;line-height: 16.8px;letter-spacing: 0.03em;text-align: center;width: 50%; margin: 2rem auto;color: #fff; text-decoration:none;padding:0.375rem 0.75rem; vertical-align:middle;">
-                                                My Services
+                                            <a href="{{ route('dashboard.index') }}" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box;background: #55BD8B;border-color: #55BD8B;border-color: #55BD8B;display:flex;justify-content:center;align-items:center;height: 38.31px;border-radius: 12px;box-shadow: 0px 4px 10px 0px #E9444B40;font-size: 14px;font-weight: 500;line-height: 16.8px;letter-spacing: 0.03em;text-align: center;width: 50%; margin: 2rem auto;color: #fff; text-decoration:none;padding:0.375rem 0.75rem; vertical-align:middle;">
+                                                Dashboard
                                             </a>
                                         </td>
                                     </tr>
