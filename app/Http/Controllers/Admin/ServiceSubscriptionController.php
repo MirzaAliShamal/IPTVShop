@@ -113,7 +113,7 @@ class ServiceSubscriptionController extends Controller
 
             if ($data['status'] == 'started') {
                 $user = $subscription->user;
-                Mail::to($user->email)->send(new ServicesPurchasedEmail($user, $subscription));
+                Mail::mailer('info')->to($user->email)->send(new ServicesPurchasedEmail($user, $subscription));
             }
 
             DB::commit();
@@ -138,7 +138,7 @@ class ServiceSubscriptionController extends Controller
                 'status' => 'suspended',
             ]);
             $user = $subscription->user;
-            Mail::to($user->email)->send(new ServicesSuspendedEmail($user, $subscription));
+            Mail::mailer('info')->to($user->email)->send(new ServicesSuspendedEmail($user, $subscription));
 
             DB::commit();
             return redirect()->route('admin.service.subscription.index')->with('Record deleted successfully!');

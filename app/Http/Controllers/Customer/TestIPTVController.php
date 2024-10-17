@@ -111,7 +111,7 @@ class TestIPTVController extends Controller
                 'status' => 'started',
             ]);
 
-            Mail::to($user->email)->send(new TestIptvStartedEmail($user, $testIptvAccount));
+            Mail::mailer('info')->to($user->email)->send(new TestIptvStartedEmail($user, $testIptvAccount));
             $request->session()->forget('otp');
 
             DB::commit();

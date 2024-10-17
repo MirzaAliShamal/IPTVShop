@@ -14,7 +14,7 @@
         </div>
         <div class="dropdown d-flex align-items-center">
             <div class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <span class="header-menu">iptv</span>
+                <span class="header-menu">{{ Auth::user()->username }}</span>
             </div>
             <ul class="dropdown-menu dropdown-menu-end">
                 <li><a class="dropdown-item" href="{{ route('edit.profile') }}">Edit Profile</a></li>

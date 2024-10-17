@@ -31,6 +31,6 @@ class ServicesExpiredEmailJob implements ShouldQueue
      */
     public function handle(): void
     {
-        Mail::to($this->user->email)->send(new ServicesExpiredEmail($this->user, $this->subscription));
+        Mail::mailer('info')->to($this->user->email)->send(new ServicesExpiredEmail($this->user, $this->subscription));
     }
 }

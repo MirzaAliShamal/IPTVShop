@@ -68,7 +68,7 @@ class ServiceController extends Controller
                 $user->save();
             }
 
-            Mail::to($user->email)->send(new ServicesPurchasedEmail($user, $subscription));
+            Mail::mailer('info')->to($user->email)->send(new ServicesPurchasedEmail($user, $subscription));
 
             DB::commit();
         } catch (\Exception $e) {

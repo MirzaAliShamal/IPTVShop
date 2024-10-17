@@ -67,7 +67,7 @@ class IPTVController extends Controller
                 $user->save();
             }
 
-            Mail::to($user->email)->send(new IptvSubscriptionPurchasedEmail($user, $subscription));
+            Mail::mailer('info')->to($user->email)->send(new IptvSubscriptionPurchasedEmail($user, $subscription));
 
             DB::commit();
         } catch (\Exception $e) {

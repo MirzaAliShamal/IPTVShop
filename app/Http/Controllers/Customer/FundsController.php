@@ -57,7 +57,7 @@ class FundsController extends Controller
                 'company_paypal_email' => $paypalAcc->email,
             ]);
 
-            Mail::to($user->email)->send(new FundsPurchasedEmail($user, $transaction));
+            Mail::mailer('info')->to($user->email)->send(new FundsPurchasedEmail($user, $transaction));
 
             DB::commit();
             return redirect()->route('funds.thankyou');
@@ -173,7 +173,7 @@ class FundsController extends Controller
                 'company_bank_bic' => $bankAcc->bic,
             ]);
 
-            Mail::to($user->email)->send(new FundsPurchasedEmail($user, $transaction));
+            Mail::mailer('info')->to($user->email)->send(new FundsPurchasedEmail($user, $transaction));
 
             DB::commit();
             return redirect()->route('funds.thankyou');
@@ -316,14 +316,14 @@ class FundsController extends Controller
                     $user->wallet_balance = $user->wallet_balance + $transaction->amount;
                     $user->save();
 
-                    Mail::to($user->email)->send(new FundsApprovedEmail($user, $transaction));
+                    Mail::mailer('info')->to($user->email)->send(new FundsApprovedEmail($user, $transaction));
                 } else {
                     $transaction->status = 'declined';
                     $transaction->steps = "complete";
                     $transaction->save();
 
                     $user = $transaction->user;
-                    Mail::to($user->email)->send(new FundsDeclinedEmail($user, $transaction));
+                    Mail::mailer('info')->to($user->email)->send(new FundsDeclinedEmail($user, $transaction));
                 }
                 broadcast(new PaymentStatusUpdated($transaction->user->id, $payload))->toOthers();
                 break;

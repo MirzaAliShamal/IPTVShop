@@ -17,6 +17,19 @@
         <link rel="stylesheet" href="{{ asset('app/css/style.css?v='.rand()) }}">
         <link rel="stylesheet" href="{{ asset('app/css/responsive.css?v='.rand()) }}">
         @yield('css')
+        <!--Start of Tawk.to Script-->
+        <script type="text/javascript">
+            var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+            (function(){
+            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+            s1.async=true;
+            s1.src='https://embed.tawk.to/670a2fba4304e3196ad0a495/1i9vsksfu';
+            s1.charset='UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+            })();
+        </script>
+        <!--End of Tawk.to Script-->
     </head>
     <body data-side-minimize="off">
         <div class="d-flex flex-column" id="wrapper">

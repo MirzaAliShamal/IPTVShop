@@ -18,10 +18,10 @@
                             <p class="mb-3">Here is a step-by-step video guide on how to top up your TopIPTVShop account.</p>
 
                             <div class="d-flex flex-row gap-3 justify-content-center">
-                                <a href="" class="btn btn-primary">
+                                <a href="https://www.google.fr/" target="_blank" class="btn btn-primary">
                                     Watch Video
                                 </a>
-                                <a href="" class="btn btn-secondary">
+                                <a href="https://web.telegram.org/k/" target="_blank" class="btn btn-secondary">
                                     Join us
                                     <span class="ms-2">
                                         <svg width="24" height="24" viewBox="0 0 51 51" fill="none" xmlns="http://www.w3.org/2000/svg">

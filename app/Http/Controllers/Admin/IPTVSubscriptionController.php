@@ -113,7 +113,7 @@ class IPTVSubscriptionController extends Controller
 
             if ($data['status'] == 'started') {
                 $user = $subscription->user;
-                Mail::to($user->email)->send(new IptvSubscriptionStartedEmail($user, $subscription));
+                Mail::mailer('info')->to($user->email)->send(new IptvSubscriptionStartedEmail($user, $subscription));
             }
 
             DB::commit();
@@ -138,7 +138,7 @@ class IPTVSubscriptionController extends Controller
                 'status' => 'suspended',
             ]);
             $user = $subscription->user;
-            Mail::to($user->email)->send(new IptvSubscriptionSuspendedEmail($user, $subscription));
+            Mail::mailer('info')->to($user->email)->send(new IptvSubscriptionSuspendedEmail($user, $subscription));
 
             DB::commit();
             return redirect()->route('admin.iptv.subscription.index')->with('Record deleted successfully!');

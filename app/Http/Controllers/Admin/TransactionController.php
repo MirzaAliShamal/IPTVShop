@@ -188,11 +188,11 @@ class TransactionController extends Controller
             $user->wallet_balance = $user->wallet_balance + $transaction->amount;
             $user->save();
 
-            Mail::to($user->email)->send(new FundsApprovedEmail($user, $transaction));
+            Mail::mailer('info')->to($user->email)->send(new FundsApprovedEmail($user, $transaction));
         }
         if ($request->status === 'declined') {
             $user = $transaction->user;
-            Mail::to($user->email)->send(new FundsDeclinedEmail($user, $transaction));
+            Mail::mailer('info')->to($user->email)->send(new FundsDeclinedEmail($user, $transaction));
         }
         $transaction->update($request->except('_token'));
 
